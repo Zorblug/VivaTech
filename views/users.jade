@@ -1,0 +1,10 @@
+﻿extends layout
+
+block scripts
+  script(src='scripts/dominosPlayerInterface.js')
+  script(src='scripts/users.js')
+
+block content
+  h1= "PLAYER"
+  p Welcome to #{title}
+  button(id='start') START
