@@ -1,5 +1,5 @@
 ﻿{
-    "verbose": false,
+    "verbose": true,
     "ignore": [
         ".gitignore",
         ".git",
@@ -8,5 +8,5 @@
         "public",
         "test"
     ],
-    "watch": "*.js"
+    "watch": ["*.js"]
 }

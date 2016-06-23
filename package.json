@@ -11,6 +11,16 @@
     "name": "JCDecaux Innovation",
     "email": ""
   },
+  "standard": {
+    "env": {
+      "node": true,
+      "mocha": true
+    },    
+    "ignore": [
+      "/doc/",
+      "/"
+    ]
+  },
   "dependencies": {
     "body-parser": "~1.8.1",
     "debug": "^2.2.0",

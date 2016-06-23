@@ -115,6 +115,16 @@ Domino.PlayerInterface.prototype.init = function init(data, callback) {
         }
     });
 
+    this._socket.on('timeout', function (data) {
+      that.debug('Timeout - le serveur a joué pour le joueur : %s', JSON.stringify(data));
+      if (data.player) {
+          that._playerData = data.player;
+          that._currentTable = data.table;
+
+          that._events.fire('timeout', data);
+      }
+    });
+
     this._socket.on('error', function (data) {
         that._events.fire('error', data);
     });
@@ -194,6 +204,10 @@ Domino.PlayerInterface.prototype.onTurnChange = function onTurnChange(callback) 
 
 Domino.PlayerInterface.prototype.onNewPlayer = function onNewPlayer(callback) {
     this._events.addObserver('new_player', callback);
+};
+
+Domino.PlayerInterface.prototype.onTimeout = function onTimeout(callback) {
+    this._events.addObserver('timeout', callback);
 };
 
 Domino.PlayerInterface.prototype.onGameOver = function onGameOver(callback) {

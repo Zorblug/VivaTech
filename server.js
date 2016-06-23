@@ -8,7 +8,7 @@ var GameServer = require('./lib/dominosServerControl.js');
 
 var httpServer = http.createServer(app);
 
-var gameServer = new GameServer(httpServer, 30);
+var gameServer = new GameServer(httpServer, 30, 10);
 gameServer.init();
 
 httpServer.listen(app.get('port'), function () {
