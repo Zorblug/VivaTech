@@ -88,7 +88,7 @@ Domino.PlayerInterface.prototype.init = function init(data, callback) {
 
         var iWin = data.winner.id === that._playerData.id;
 
-        that._events.fire('end', { iWin: iwin, winner: data.winner });
+        that._events.fire('end', { iWin: iWin, winner: data.winner });
     });
 
     this._socket.on('turn', function (data) {

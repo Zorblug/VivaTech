@@ -1,0 +1,4 @@
+--colors
+--recursive
+--reporter spec
+--slow 600

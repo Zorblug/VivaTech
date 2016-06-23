@@ -8,8 +8,8 @@ describe('Test du jeux de dominos', function () {
     var id2 = 86868686;
     var id3 = 78787878;
     var id4 = 56565656;
-    var id5 = 01010110;
-
+    var id5 = 11010110;
+    
     it('Initialise', function () {
         var dominosGame = new game();
         dominosGame.initGameSet();
@@ -23,104 +23,75 @@ describe('Test du jeux de dominos', function () {
         }
     });
 
+    function initGame() {
+        var gameInstance = new game();
+        gameInstance.initGameSet();
+
+        assert.ok(gameInstance._gameSet.length === 28, "Nombre de dominos incorrecte !");
+
+        return gameInstance;
+    }
+
+    function creationJoueur(game, id, name, count) {
+        var player = game.addNewPlayer(id, { name: name });
+        assert.ok(game._players.count === count, 'Création du premier joueur à échoué !');
+        assert.ok(game._players.item(id).data.name === name, 'Joueur 1 perte de données !');
+        assert.deepEqual(player, { result: 0, count: count, player: { id: id, idx: count-1, hand:[], data: { name : name} } }, 'Ajout joueur' + name + ' incorrect !');
+    } 
+
+    function testLaunch(game, playerCount, handCount, pileCount, playerIdArrayOrder) {
+        var gameData = game.launchGame();
+
+        game._players.forEach(function(player) {
+            assert.ok(player.hand.length === handCount, 'Joueur ' + id1 + ' doit avoir ' + handCount + ' dominos!');    
+        });
+        assert.ok(game._gameSet.length === pileCount, 'La pioches doit avoir' + pileCount + ' dominos');
+
+        gameData.players.forEach(function(player) {            
+            assert.ok(player.hand.length === handCount, 'Joueur ' + id1 + ' doit avoir ' + handCount + ' dominos!');    
+        });
+        assert.ok(gameData.pile.length === pileCount, 'La pile doit contenir ' + pileCount + ' dominos');
+        assert.ok(gameData.players.count === playerCount, 'Nombre de joueur doit être ' + playerCount);   
+        assert.deepEqual(gameData.order, playerIdArrayOrder, "Ordre des joueurs incorrecte !");
+        assert.ok(gameData.turn === 0, "Le tour doit ête 0 !");
+        assert.ok(gameData.ending === false, "L'indicateur de fin de partie doit être faux");     
+    }
+
     it('Creation de 2 joueurs', function () {
-        var dominosGame = new game();
-        dominosGame.initGameSet();
+        var dominosGame = initGame();
 
-        assert.ok(dominosGame._gameSet.length === 28, "Nombre de dominos incorrecte !");
+        creationJoueur(dominosGame, id1,'Achille',1);      
+        creationJoueur(dominosGame, id2,'Bellérophon',2);
 
-        var p1 = dominosGame.addNewPlayer(id1, { name: 'Achille' });
-        assert.ok(dominosGame._players.count === 1, "Création du premier joueur à échoué !");
-        assert.ok(dominosGame._players.item(id1).data.name === 'Achille', "Joueur 1 perte de données !");
-        assert.deepEqual(p1, { result: 0, count: 1, player: { id:id1, idx:0, hand:[], data: { name : 'Achille'} } }, "Ajout joueur Achille incorrect !");
-
-        var p2 = dominosGame.addNewPlayer(id2, { name: 'Bellérophon' });
-        assert.ok(dominosGame._players.count === 2, "Création du second joueur à échoué !");
-        assert.ok(dominosGame._players.item(id2).data.name === 'Bellérophon', "Joueur 2 perte de données !");
-        assert.deepEqual(p2, { result: 0, count: 2 , player: { id: id2, idx: 1, hand: [], data: { name : 'Bellérophon' } } }, "Ajout joueur Bellérophon incorrect !");
-
-        var gameData = dominosGame.launchGame();
-        assert.ok(dominosGame._players.item(id1).hand.length === 8, "Joueur 1 doit avoir 8 dominos!");
-        assert.ok(dominosGame._players.item(id2).hand.length === 8, "Joueur 2 doit avoir 8 dominos!");
-        assert.ok(dominosGame._gameSet.length === 12, "La pioches doit avoir 12 dominos!");
-        assert.ok((gameData.pile.length === 12) && (gameData.players.count === 2), "Réponse incorrecte !");
-
-        assert.deepEqual(gameData.order, [id1, id2], "Ordre incorrecte !");
-
+        testLaunch(dominosGame, 2, 8, 12, [id1, id2]);
+        
         var p5 = dominosGame.addNewPlayer(id5, { name: 'Ulysse' });
         assert.deepEqual(p5, { result: -2, count: 2, player: undefined }, "Ajout joueur incorrect !");
     });
 
     it('Creation de 3 joueurs', function () {
-        var dominosGame = new game();
-        dominosGame.initGameSet();
+       var dominosGame = initGame();
 
-        assert.ok(dominosGame._gameSet.length === 28, "Nombre de dominos incorrecte !");
-
-        var p1 = dominosGame.addNewPlayer(id1, { name: 'Achille' });
-        assert.ok(dominosGame._players.count === 1, "Création du premier joueur à échoué !");
-        assert.ok(dominosGame._players.item(id1).data.name === 'Achille', "Joueur 1 perte de données !");
-        assert.deepEqual(p1, { result: 0, count: 1, player: { id: id1, idx: 0, hand: [], data: { name : 'Achille' } } }, "Ajout joueur incorrect !");
-
-        var p2 = dominosGame.addNewPlayer(id2, { name: 'Bellérophon' });
-        assert.ok(dominosGame._players.count === 2, "Création du second joueur à échoué !");
-        assert.ok(dominosGame._players.item(id2).data.name === 'Bellérophon', "Joueur 2 perte de données !");
-        assert.deepEqual(p2, { result: 0, count: 2 , player: { id: id2, idx: 1, hand: [], data: { name : 'Bellérophon' } } }, "Ajout joueur incorrect !");
-
-        var p3 = dominosGame.addNewPlayer(id3, { name: 'Héraclès' });
-        assert.ok(dominosGame._players.count === 3, "Création du troisième joueur à échoué !");
-        assert.ok(dominosGame._players.item(id3).data.name === 'Héraclès', "Joueur 2 perte de données !");
-        assert.deepEqual(p3, { result: 0, count: 3, player: { id: id3, idx: 2, hand: [], data: { name : 'Héraclès' } }}, "Ajout joueur incorrect !");
-
-
-        var gameData = dominosGame.launchGame();
-        assert.ok(dominosGame._players.item(id1).hand.length === 6, "Joueur 1 doit avoir 6 dominos!");
-        assert.ok(dominosGame._players.item(id2).hand.length === 6, "Joueur 2 doit avoir 6 dominos!");
-        assert.ok(dominosGame._players.item(id3).hand.length === 6, "Joueur 3 doit avoir 6 dominos!");
-        assert.ok(dominosGame._gameSet.length === 10, "La pioches doit avoir 10 dominos!");
-        assert.ok((gameData.pile.length === 10) && (gameData.players.count === 3), "Réponse incorrecte !");
-        assert.deepEqual(gameData.order, [id1, id2, id3], "Ordre incorrecte !");
+        creationJoueur(dominosGame, id1,'Achille',1);      
+        creationJoueur(dominosGame, id2,'Bellérophon',2);
+        creationJoueur(dominosGame, id3,'Héraclès',3);
+        
+        testLaunch(dominosGame, 3, 6, 10, [id1, id2, id3]);        
     });
 
     it('Creation de 4 joueurs', function () {
-        var dominosGame = new game();
-        dominosGame.initGameSet();
+        var dominosGame = initGame();
 
-        assert.ok(dominosGame._gameSet.length === 28, "Nombre de dominos incorrecte !");
-
-        var p1 = dominosGame.addNewPlayer(id1, { name: 'Achille' });
-        assert.ok(dominosGame._players.count === 1, "Création du premier joueur à échoué !");
-        assert.ok(dominosGame._players.item(id1).data.name === 'Achille', "Joueur 1 perte de données !");
-        assert.deepEqual(p1, { result: 0, count: 1, player: { id: id1, idx: 0, hand: [], data: { name : 'Achille' } } }, "Ajout joueur incorrect !");
-
-        var p2 = dominosGame.addNewPlayer(id2, { name: 'Bellérophon' });
-        assert.ok(dominosGame._players.count === 2, "Création du second joueur à échoué !");
-        assert.ok(dominosGame._players.item(id2).data.name === 'Bellérophon', "Joueur 2 perte de données !");
-        assert.deepEqual(p2, { result: 0, count: 2 , player: { id: id2, idx: 1, hand: [], data: { name : 'Bellérophon' } } }, "Ajout joueur incorrect !");
-
-        var p3 = dominosGame.addNewPlayer(id3, { name: 'Héraclès' });
-        assert.ok(dominosGame._players.count === 3, "Création du troisième joueur à échoué !");
-        assert.ok(dominosGame._players.item(id3).data.name === 'Héraclès', "Joueur 2 perte de données !");
-        assert.deepEqual(p3, { result: 0, count: 3, player: { id: id3, idx: 2, hand: [], data: { name : 'Héraclès' } } } , "Ajout joueur incorrect !");
-
-        var p4 = dominosGame.addNewPlayer(id4, { name: 'Jason' });
-        assert.ok(dominosGame._players.count === 4, "Création du quatrième joueur à échoué !");
-        assert.ok(dominosGame._players.item(id4).data.name === 'Jason', "Joueur 2 perte de données !");
-        assert.deepEqual(p4, { result: 0, count: 4, player: { id: id4, idx: 3, hand: [], data: { name : 'Jason' } } }, "Ajout joueur incorrect !");
-
+        creationJoueur(dominosGame, id1,'Achille',1);      
+        creationJoueur(dominosGame, id2,'Bellérophon',2);
+        creationJoueur(dominosGame, id3,'Héraclès',3);
+        creationJoueur(dominosGame, id4,'Jason',4);
+                
         var p5 = dominosGame.addNewPlayer(id5, { name: 'Ulysse' });
         assert.deepEqual(p5, { result: -1, count: 4, player: undefined }, "Ajout joueur incorrect !");
 
-        var gameData =dominosGame.launchGame();
-        assert.ok(dominosGame._players.item(id1).hand.length === 5, "Joueur 1 doit avoir 5 dominos!");
-        assert.ok(dominosGame._players.item(id2).hand.length === 5, "Joueur 2 doit avoir 5 dominos!");
-        assert.ok(dominosGame._players.item(id3).hand.length === 5, "Joueur 3 doit avoir 5 dominos!");
-        assert.ok(dominosGame._players.item(id4).hand.length === 5, "Joueur 4 doit avoir 5 dominos!");
-        assert.ok(dominosGame._gameSet.length === 8, "La pioches doit avoir 8 dominos!");
-        assert.ok((gameData.pile.length === 8) && (gameData.players.count === 4), "Réponse incorrecte !");
-
-        assert.deepEqual(gameData.order,[id1,id2,id3,id4], "Ordre incorrecte !");
-
+        testLaunch(dominosGame, 4, 5, 8, [id1, id2, id3, id4]);
+        
         var p5 = dominosGame.addNewPlayer(id5, { name: 'Ulysse' });
         assert.deepEqual(p5, { result: -2, count: 4, player: undefined }, "Ajout joueur incorrect !");
     });
@@ -131,6 +102,23 @@ describe('Test du jeux de dominos', function () {
         assert.ok(game.belongsTo(liste, [5, 6]) === true, 'Le dominos devrait appartenir à la liste');
         assert.ok(game.belongsTo(liste, [3, 6]) === false, 'Le dominos devrait ne pas appartenir à la liste');
     });
+
+    it('Test pick domino', function() {
+        var dominosGame = initGame();
+        creationJoueur(dominosGame, id1,'Achille',1);      
+        creationJoueur(dominosGame, id2,'Bellérophon',2);
+
+        testLaunch(dominosGame, 2, 8, 12, [id1, id2]);
+
+        var firstPlayer = dominosGame.getActivePlayer();
+        assert.ok(firstPlayer.id === id1, 'Le premier joueur doit avoir id1');
+        var handBefore = firstPlayer.hand.slice(0);
+        var pileBefore = dominosGame._gameSet.slice(0);
+
+        var result = dominosGame.pickDomino(firstPlayer.id);        
+        assert.ok(firstPlayer.hand.length === handBefore.length + 1,'La main du joueur doit avoir un domino de plus');
+        assert.ok(result.pile.length + 1 === pileBefore.length,'La pile doit avoir un domino de moins');        
+    })
 
     describe('Phase de jeux à 4 joueurs', function () {
         var dominosGame;

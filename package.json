@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
    "scripts": {
-        "start": "node server.js",
-        "dev:server": "nodemon server.js"
-    },
-  "description": "DominosServer",
+    "start": "node server.js",
+    "dev:server": "nodemon server.js",
+    "dev:test": "npm run test -- --watch",
+    "test": "cross-env NODE_ENV=test mocha"
+  },
+  "description": "Jeux de domino de 2 à 4 joueurs en HTML Javascript",
   "author": {
-    "name": "JCDecaux Innovation",
+    "name": "Arnaud Phelipot, Philippe Ebersold",
     "email": ""
   },
   "standard": {
