@@ -4,13 +4,13 @@ html
     meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
     meta(name='viewport', content='width=device-width, initial-scale=1.0, user-scalable=no')
     title= title
-    link(rel='stylesheet', href='css/style.css')
-
-    script(src='scripts/debug.js')
-    script(src='scripts/event.js')
+    
+    block styles
+  
+    script(src='/scripts/debug.js')
+    script(src='/scripts/event.js')
     script(src='/socket.io/socket.io.js')
-    script(src='scripts/underscore.js')
-
+    
     block scripts
   body
     block content

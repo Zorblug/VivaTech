@@ -5,12 +5,10 @@
 
 "use strict";
 
-
 var Domino = Domino || {};//Espace de nom
 
 /* * Interface table de jeux *
  */
-
 Domino.GameInterface = function GameInterface(serverAddress) {
     this.debug = debug('domino.tableGame');
 
@@ -20,7 +18,8 @@ Domino.GameInterface = function GameInterface(serverAddress) {
     this._turn = -1;
     this._currentPlayer = undefined;
 
-    this._socket = io.connect(serverAddress);
+    this.debug('Connect to %s', serverAddress);
+    this._socket = io.connect(serverAddress + '/domino');
     this._events = new ObservableEvents();
 
     this._initCallback = undefined;
@@ -138,5 +137,3 @@ Domino.GameInterface.prototype.onError = function onError(callback) {
 Domino.GameInterface.prototype.onClose = function onClose(callback) {
     this._events.addObserver('close', callback);
 };
-
-

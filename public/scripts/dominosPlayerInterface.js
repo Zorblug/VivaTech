@@ -19,7 +19,8 @@ Domino.PlayerInterface = function PlayerInterface(serverAddress) {
     this._turn = -1;
     this._actived = false;
 
-    this._socket = io.connect(serverAddress);
+    this.debug('Connect to %s', serverAddress);
+    this._socket = io.connect(serverAddress + '/domino');
     this._events = new ObservableEvents();
 
     this._initCallback = undefined;

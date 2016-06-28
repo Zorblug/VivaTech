@@ -2,7 +2,7 @@
 
 "use strict";
 (function load() {
-    var dominosObserver = new Domino.GameInterface('http://127.0.0.1:3000');
+    var dominosObserver = new Domino.GameInterface('http://' + config.address + ':' + config.port);
 
     document.addEventListener("DOMContentLoaded", init);
 

@@ -1,0 +1,17 @@
+﻿extends layout
+
+block styles
+  link(rel='stylesheet', href='/css/domino.css')
+
+block scripts
+  script
+    var config = {};
+    config.address = '#{address}';
+    config.port = '#{port}';
+  script(src='/scripts/underscore.js')
+  script(src='/scripts/dominosGameInterface.js')
+  script(src='/scripts/dominoGameLoad.js')
+
+block content
+  h1= "GAME"
+  p Welcome to #{title}

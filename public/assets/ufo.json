@@ -1,0 +1,117 @@
+{"frames": [
+{
+	"filename": "bullet-1",
+	"frame": {"x":1,"y":851,"w":48,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":49},
+	"sourceSize": {"w":48,"h":49}
+},
+{
+	"filename": "bullet-2",
+	"frame": {"x":50,"y":851,"w":48,"h":47},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":48,"h":47},
+	"sourceSize": {"w":48,"h":49}
+},
+{
+	"filename": "bullet-3",
+	"frame": {"x":50,"y":899,"w":48,"h":47},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":48,"h":47},
+	"sourceSize": {"w":48,"h":49}
+},
+{
+	"filename": "bullet-4",
+	"frame": {"x":1,"y":901,"w":48,"h":47},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":48,"h":47},
+	"sourceSize": {"w":48,"h":49}
+},
+{
+	"filename": "Bleu-0",
+	"frame": {"x":1,"y":1,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Rouge-0",
+	"frame": {"x":1,"y":86,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Jaune-0",
+	"frame": {"x":1,"y":171,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Multicolor-0",
+	"frame": {"x":1,"y":256,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Vert-0",
+	"frame": {"x":1,"y":341,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Bleu-1",
+	"frame": {"x":1,"y":426,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Rouge-1",
+	"frame": {"x":1,"y":511,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Jaune-1",
+	"frame": {"x":1,"y":596,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Multicolor-1",
+	"frame": {"x":1,"y":681,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+},
+{
+	"filename": "Vert-1",
+	"frame": {"x":1,"y":766,"w":139,"h":84},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":139,"h":84},
+	"sourceSize": {"w":141,"h":85}
+}],
+"meta": {
+	"app": "Spritor"
+}
+}

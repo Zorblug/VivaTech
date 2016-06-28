@@ -1,0 +1,14 @@
+﻿extends layout
+
+block styles
+  link(rel='stylesheet', href='/css/domino.css')
+
+block scripts
+  script(src='/scripts/underscore.js')
+  script(src='/scripts/dominosPlayerInterface.js')
+  script(src='/scripts/dominoPlayerLoad.js')
+
+block content
+  h1= "PLAYER"
+  p Welcome to #{title}
+  button(id='start') START
