@@ -12,19 +12,19 @@ var SpaceInvaders = SpaceInvaders || {};//Espace de nom SpaceInvaders
 //#region CREATION DES ALIENS
 SpaceInvaders.Alien = function (game, x, y, key) {
     Phaser.Sprite.call(this, game, x, y,'ufo', key + '0');//Herite d'un sprite
-    
+
     //this.anchor.setTo(0.5, 0.5);
     this.animations.add('fly', Phaser.Animation.generateFrameNames(key,0, 1, '', 1), 5, true);
     this.animations.play('fly');
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
-    
+
     this.checkWorldBounds = true;
     this.body.collideWorldBounds = true;//Empéche de l alien de sortir de l'écran
     //alien.outOfBoundsKill = true; //Detruits l'alien si il sort de l'écran
     this.body.velocity.y = 70;
     this.body.bounce.x = 1;
     this.body.bounce.y = 0.9;
-    
+
     this.lifePoint = 3;
     this.scorePoint = 10;
 };
@@ -36,25 +36,25 @@ SpaceInvaders.Alien.prototype = Object.create(Phaser.Sprite.prototype, {
 SpaceInvaders.Alien.Keys = ['Bleu-','Rouge-','Jaune-','Multicolor-', 'Vert-'];
 
 SpaceInvaders.Alien.preload = function () {
-    game.load.atlas('ufo', 'assets/ufo.png', 'assets/ufo.json');
+    game.load.atlas('ufo', '/assets/ufo.png', '/assets/ufo.json');
 };
 
 
 SpaceInvaders.Aliens = function (game) {
     this.game = game;
 
-    //Events 
+    //Events
     this.events = new ObservableEvents();;
 
-    //Aliens    
+    //Aliens
     this.indexSprites = 0;
 
     this.enemyBullets;
     this.firingDelay = 2000;
-    this.firingTimer = 0;   
+    this.firingTimer = 0;
     this.aliens;
     this.tween = undefined;
-    
+
     //Explosions
     this.shotAnimation;
     this.destroyAnimation;
@@ -89,7 +89,7 @@ SpaceInvaders.Aliens.prototype = {
         for (var i in this.aliens.children) {
             this.aliens.children[i].scorePoint += 10;
             this.aliens.children[i].body.velocity.set(this.game.rnd.integerInRange(-400, 400), this.game.rnd.integerInRange(-160, 50));
-        }       
+        }
     },
     _createAliens: function () {
         var invaderColor = SpaceInvaders.Alien.Keys[this.indexSprites];
@@ -102,23 +102,23 @@ SpaceInvaders.Aliens.prototype = {
         }
     },
     _alienHitsPlayer: function (player, bullet) {
-        bullet.kill();//Efface le tire    
+        bullet.kill();//Efface le tire
 
         player.lives -= 1;
         this.events.fire('alienHitPlayer', { id: player.id, lives: player.lives });
 
-        
+
         if (player.lives < 1) { // Quand le player est mort
             player.kill();
             //  KABOUM :)
-            this.destroyAnimation.play(player.body.x, player.body.y);            
+            this.destroyAnimation.play(player.body.x, player.body.y);
             this.events.fire('alienKillPlayer', { id: player.id, lives: player.lives });
         }
         else {
             //  Ptit KABOUM
             this.shotAnimation.play(player.body.x, player.body.y);
         }
-       
+
     },
     _alienCollidePlayer: function (player, alien) {
         player.lives -= 2;
@@ -171,7 +171,7 @@ SpaceInvaders.Aliens.prototype = {
     update: function(player){
         if (this.game.time.now > this.firingTimer) {
             this.fire(player)
-        } 
+        }
         this.game.physics.arcade.overlap(this.enemyBullets, player, this._alienHitsPlayer, null, this);
         this.game.physics.arcade.overlap(this.aliens, player, this._alienCollidePlayer, null, this);
     },
@@ -186,7 +186,7 @@ SpaceInvaders.Aliens.prototype = {
        this.aliens.forEachAlive(function (alien) {
             livingEnemies.push(alien);
         });
-        
+
         if (bullet && livingEnemies.length > 0) {
 
             var random = this.game.rnd.integerInRange(0, livingEnemies.length - 1);
@@ -198,15 +198,15 @@ SpaceInvaders.Aliens.prototype = {
             this.game.physics.arcade.moveToObject(bullet, player, 300);
             this.firingTimer = this.game.time.now + this.firingDelay;
         }
-    },   
+    },
     clearAttack: function () {
-        this.aliens.removeAll();        
+        this.aliens.removeAll();
     },
     startAttack: function () {
         this._createAliensAttack();
     },
     countLiving: function () {
-        var count = this.aliens.countLiving() 
+        var count = this.aliens.countLiving()
         if (count == 0) {
             this.enemyBullets.callAll('kill', this);
         }
@@ -226,9 +226,9 @@ SpaceInvaders.Aliens.prototype = {
 
 SpaceInvaders.Ship = function (game, x, y, keyIndex) {
     Phaser.Sprite.call(this, game, x, y, 'fusee', SpaceInvaders.Ship.Keys[keyIndex] + '1');//Herite d'un sprite
-    
+
     game.physics.enable(this, Phaser.Physics.ARCADE);
-  
+
     //  les tirs des joueurs
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
@@ -239,7 +239,7 @@ SpaceInvaders.Ship = function (game, x, y, keyIndex) {
     this.bullets.setAll('outOfBoundsKill', true);
     this.bullets.setAll('checkWorldBounds', true);
     //this.bullets.setAll('scale', 0.5);
-    
+
     this.bulletTime = 0;
 
 
@@ -252,11 +252,11 @@ SpaceInvaders.Ship = function (game, x, y, keyIndex) {
 
     this.animations.add('player_fly', Phaser.Animation.generateFrameNames(SpaceInvaders.Ship.Keys[keyIndex] , 1, 4, '', 1), 20, true);
     this.play('player_fly');
-    
+
     this.id = undefined;
-    this.lives = 3;//Vies           
-    this.index = keyIndex;   
-    
+    this.lives = 3;//Vies
+    this.index = keyIndex;
+
     console.log("Player index : " + keyIndex);
 };
 
@@ -265,7 +265,7 @@ SpaceInvaders.Ship.Keys = ['fusee_Bleu_', 'fusee_Jaune_', 'fusee_Rouge_', 'fusee
 SpaceInvaders.Ship.BulletKeys = ['bullet_Bleu', 'bullet_Jaune', 'bullet_Rouge', 'bullet_Vert', 'bullet_Violet', 'bullet_Gris'];
 
 SpaceInvaders.Ship.preload = function () {
-    game.load.atlas('fusee', 'assets/ship.png', 'assets/ship.json');
+    game.load.atlas('fusee', '/assets/ship.png', '/assets/ship.json');
 };
 
 SpaceInvaders.Ship.prototype = Object.create(Phaser.Sprite.prototype, {
@@ -276,7 +276,7 @@ SpaceInvaders.Ship.prototype.fire = function () {
     //FIRE
     if (this.game.time.now > this.bulletTime) {
         var bullet = this.bullets.getFirstExists(false);
-        
+
         if (bullet) {
             bullet.id = this.id;
             bullet.reset(this.x, this.y - 55);
@@ -294,7 +294,7 @@ SpaceInvaders.Player =  function (parent, player, joystick) {
     //Joueur
     this.player = player;
     this.score = 0;
-    
+
     console.log('Create Player : ' + this.joystick.id);
 }
 
@@ -303,11 +303,11 @@ SpaceInvaders.Player.prototype = {
     destroy:function(){
         console.log('Delete Player : ' + this.joystick.id);
         this.player.reset(100 + (100 * this.player.index), 1800);
-        this.player.kill();        
-    },        
+        this.player.kill();
+    },
     isAlive: function () {
         return this.player.alive;
-    },    
+    },
     update: function () {
         //this.player.body.velocity.setTo(0, 0);
 
@@ -332,15 +332,15 @@ SpaceInvaders.Player.prototype = {
         }
 
         if (this.joystick.button > 0) {
-            
+
             if (this.joystick.button > 1) {
                 this.parent.events.fire('playerStartGame',{ id: this.joystick.id, data: this.joystick.button });
             } else {
                 //FIRE
                 this.player.fire();
             }
-        }        
-    }   
+        }
+    }
 };
 //#endregion
 
@@ -385,12 +385,12 @@ SpaceInvaders.PlayerGroup.prototype = {
                 if (player) {
                     this.game.physics.arcade.moveToObject(alien, player.player, 200);
                 }
-                
+
                 alien.scorePoint *= 2;
-            }           
+            }
         }
 
-        this.events.fire('playerHitAlien', { id: bullet.id, point: point });       
+        this.events.fire('playerHitAlien', { id: bullet.id, point: point });
     },
     _playersCollide:function(playerA,playerB){
         console.log("COLLISION : " + playerA.id + " : " + playerB.id);
@@ -408,11 +408,11 @@ SpaceInvaders.PlayerGroup.prototype = {
             var player = this.playersGroup.getFirstExists(false);
             if (player) {
                 player.id = id;
-                player.lives = 4;//Vies 
+                player.lives = 4;//Vies
                 player.score = 0;
-                
+
                 this.players.add(id, new SpaceInvaders.Player(this, player, joystick));
-                
+
                 player.revive();
                 return player;
             }
@@ -431,19 +431,19 @@ SpaceInvaders.PlayerGroup.prototype = {
     preload: function () {
         SpaceInvaders.Ship.preload();
     },
-    create: function () {       
+    create: function () {
         this.playersGroup = this.game.add.group();
         for (var i in SpaceInvaders.Ship.Keys) {
             var player = this.playersGroup.add(new SpaceInvaders.Ship(this.game, 100 + (100 * i), 1800, i));
-        }        
-    },    
-    update: function (aliens) {       
+        }
+    },
+    update: function (aliens) {
         var that = this;
         //PLAYERS
         this.players.forEach(function (player) {
             if (player.isAlive()) {
                 player.update();
-                aliens.update(player.player);                
+                aliens.update(player.player);
             }
             that.game.physics.arcade.overlap(player.player.bullets, aliens.aliens, that._playerHitsAlien, null, that);
         });
@@ -484,7 +484,7 @@ SpaceInvaders.PlayerGroup.prototype = {
 
     onPlayerHitAlien: function (callback) {
         this.events.addObserver('playerHitAlien', callback);
-    },    
+    },
     onPlayerStartGame: function (callback) {
         this.events.addObserver('playerStartGame', callback);
     },
@@ -493,7 +493,7 @@ SpaceInvaders.PlayerGroup.prototype = {
     }
 };
 
-//#endregion 
+//#endregion
 
 //#region CREATION DES EXPLOSIONS
 SpaceInvaders.Explosions = function (game, key) {
@@ -531,18 +531,18 @@ var gameOverTimeOut = 5000;
 SpaceInvaders.Game = function (game) {
     this.remoteInput; //Joystick virtuel
 
-    this.theAliens; //Aliens 
+    this.theAliens; //Aliens
 
     this.litleExplosions;//Explosion touche
-    this.bigExplosions;//Explosion final 
+    this.bigExplosions;//Explosion final
 
     this.thePlayers; //Joueurs
 
     this.starfield;//Fond
-    
+
     this.fontText;
     this.stateText;
-    
+
     this.title;
 
     this.gameStarted = false;
@@ -567,7 +567,7 @@ SpaceInvaders.Game.prototype = {
         setTimeout(function () {
             that.remoteInput.broadcast({ state: 'end' });// ENVOIE LA FIN DE LA PARTIE
             that.game.thePlayers = that.thePlayers;
-            that.game.state.start("result");           
+            that.game.state.start("result");
         }, gameOverTimeOut);
     },
     _sendPlayerCollide: function(id) { //ENVOIE COLLISION ENTRE JOUEURS
@@ -576,16 +576,14 @@ SpaceInvaders.Game.prototype = {
             player.joystick.send({ state: 'collide' });
         }
     },
-   
+
     //#region Phaser State functions
     init: function () {
-        console.log('INIT GAME CONNECTE TO : ' + localip);
-
         this.remoteInput = this.game.remoteInput; //Joystick virtuel
 
-        this.theAliens = new SpaceInvaders.Aliens(this.game); //Aliens 
+        this.theAliens = new SpaceInvaders.Aliens(this.game); //Aliens
         this.litleExplosions = new SpaceInvaders.Explosions(this.game, 'ptikaboum');//Explosion touche
-        this.bigExplosions = new SpaceInvaders.Explosions(this.game, 'kaboom');//Explosion final 
+        this.bigExplosions = new SpaceInvaders.Explosions(this.game, 'kaboom');//Explosion final
         this.thePlayers = new SpaceInvaders.PlayerGroup(this.game, this.litleExplosions, this.bigExplosions); //Joueurs
 
 
@@ -612,7 +610,7 @@ SpaceInvaders.Game.prototype = {
             var player = that.thePlayers.players.item(context.id);
             if (player) {
                 player.score += context.point;
-                player.joystick.send({ state: 'score', score: player.score });//ENVOIE NOUVEAU SCORE JOUEUR        
+                player.joystick.send({ state: 'score', score: player.score });//ENVOIE NOUVEAU SCORE JOUEUR
             }
             if (that.theAliens.countLiving() == 0) {
                 that.theAliens.clearAttack();
@@ -629,25 +627,25 @@ SpaceInvaders.Game.prototype = {
                 that._newGame();
             }
         });
-               
+
         this.thePlayers.onPlayersCollide(function (context) { //ENVOIE COLLISION ENTRE JOUEURS
             that._sendPlayerCollide(context.A);
             that._sendPlayerCollide(context.B);
         });
-        
+
         this.thePlayers.onPlayerStartGame(function (context) {
             if (!that.gameStarted) {
                 that.gameStarted = true;
-                
+
                 //that.game.clearQR(); //QR Code sur page d'accueil
-                
+
                 that.stateText.visible = false;
                 that.title.visible = false;
-                
+
                 //that.starfield.visible = true;
-                
+
                 that.remoteInput.broadcast({ state: 'start', player: that.thePlayers.countLiving() });//ENVOIE A TOUS LES JOUEUR START GAME
-                
+
                 that.theAliens.clearAttack();
                 that.theAliens.startAttack();
             }
@@ -684,19 +682,19 @@ SpaceInvaders.Game.prototype = {
         console.log('PRELOAD GAME');
 
         this.theAliens.preload();
-        this.bigExplosions.preload('assets/explode.png', 128, 128);
-        this.litleExplosions.preload('assets/explosion64_2.png', 64, 64);
+        this.bigExplosions.preload('/assets/explode.png', 128, 128);
+        this.litleExplosions.preload('/assets/explosion64_2.png', 64, 64);
 
         this.thePlayers.preload();
-        this.load.image('starfield', 'assets/starfield.png');
-        this.game.load.image('title', 'assets/Title.png');
+        this.load.image('starfield', '/assets/starfield.png');
+        this.game.load.image('title', '/assets/Title.png');
 
-        this.load.image('fusee_Bleu', 'assets/fusee_Bleu.png');
-        this.load.image('fusee_Jaune', 'assets/fusee_Jaune.png');
-        this.load.image('fusee_Rouge', 'assets/fusee_Rouge.png');
-        this.load.image('fusee_Vert', 'assets/fusee_Vert.png');
-        this.load.image('fusee_Violet', 'assets/fusee_Violet.png');
-        this.load.image('fusee_Gris', 'assets/fusee_Gris.png');
+        this.load.image('fusee_Bleu', '/assets/fusee_Bleu.png');
+        this.load.image('fusee_Jaune', '/assets/fusee_Jaune.png');
+        this.load.image('fusee_Rouge', '/assets/fusee_Rouge.png');
+        this.load.image('fusee_Vert', '/assets/fusee_Vert.png');
+        this.load.image('fusee_Violet', '/assets/fusee_Violet.png');
+        this.load.image('fusee_Gris', '/assets/fusee_Gris.png');
     },
 
     create: function () {
@@ -717,22 +715,22 @@ SpaceInvaders.Game.prototype = {
         this.thePlayers.create();
 
         //  Texte
-        this.stateText = this.add.text(this.world.centerX, 200, ' connect to Wi-Fi\r\nand scan Nfc tag.', { font: '80px Arial', fill: '#ffc600' });
+        this.stateText = this.add.text(this.world.centerX, 200, ' connect to WiFi\r\nand scan NFC tag.', { font: '80px Arial', fill: '#ffc600' });
         this.stateText.anchor.setTo(0.5, 0);
         this.stateText.visible = true;
-        
+
         //TITRE
         this.title = this.game.add.image(this.world.centerX, this.world.centerY, 'title');
         this.title.anchor.setTo(0.5, 0);
         this.title.visible = true;
 
         //this.starfield.visible = false;
-        
-        // Explosion 
+
+        // Explosion
         this.litleExplosions.create();
         this.bigExplosions.create();
 
-        //this.game.activeQR(); //QRcode sur ma page d'acceuil 
+        //this.game.activeQR(); //QRcode sur ma page d'acceuil
     },
     update: function () {
         //  Scroll le fond
@@ -743,12 +741,12 @@ SpaceInvaders.Game.prototype = {
         this.theAliens.updateAutoCollide();//Collision entre aliens
     },
     render: function () {
-        
+
 
         //this.game.debug.bodyInfo(this.theAliens.aliens.children[3], 50, 400);
         //this.game.debug.body(this.theAliens.aliens.children[3]);
 
-       
+
 
         //this.debug.bodyInfo(theAliens.aliens.children[4], 50, 500);
         //this.debug.body(theAliens.aliens.children[4]);
@@ -799,16 +797,16 @@ SpaceInvaders.Result.prototype = {
         this.stage.setBackgroundColor(0xffffff);
         //Le fond qui scroll de haut en bas
         this.starfield = this.add.tileSprite(0, 0, 1080, 1920, 'starfield');
-        
+
         this.add.text(this.world.centerX, 200, 'SCORE', { font: '90px Arial', fill: '#ffc600', align: 'center' }).anchor.setTo(0.5, 0);;
-        
+
         //this.game.add.image(this.world.centerX / 2, 300, 'fusee_Jaune');
         //this.game.add.image(this.world.centerX / 2, 500, 'fusee_Rouge');
         //this.game.add.image(this.world.centerX / 2, 700, 'fusee_Vert');
         //this.game.add.image(this.world.centerX / 2, 900, 'fusee_Violet');
         //this.game.add.image(this.world.centerX / 2, 1100, 'fusee_Gris');
-        
-        
+
+
         var index = 0;
         var that = this;
         this.game.thePlayers.players.forEach(function (player) {
@@ -816,14 +814,14 @@ SpaceInvaders.Result.prototype = {
             that.add.text(that.world.centerX, 400 + (index * 200), player.score.toString(), { font: '80px Arial', fill: '#ffc600' });
             index += 1;
         });
-        
+
         //that.game.remoteInput.close();
 
         setTimeout(function () {
             console.log('END OF GAME');
             that.game.remoteInput.close(); //Pour envoyer un evenement au server pour déclencher le Trigger
 
-            that.game.state.start("game");             
+            that.game.state.start("game");
         }, 15000);
     },
     update: function () {
@@ -831,4 +829,4 @@ SpaceInvaders.Result.prototype = {
         this.starfield.tilePosition.y += 2;
     }
 };
-//#endregion 
+//#endregion

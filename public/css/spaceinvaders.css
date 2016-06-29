@@ -1,0 +1,39 @@
+body {
+    top:-420px;
+    left:420px;
+    position:absolute;
+    margin: 0;
+    padding: 0;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+#gameView {
+    margin: auto;
+    display: table;
+    color: #ffc600;
+    cursor:none;
+}
+
+/*#qrBackground{
+    background-color:rgba(255,255,255,0.9);
+    margin: 0 0;
+    position: absolute;
+    top: 550px;
+    left: 340px;
+    width:400px;
+    height:400px;
+    z-index: 100;
+}
+
+#qrcode {
+    background-color:white;
+    margin: 50px 50px;
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}*/

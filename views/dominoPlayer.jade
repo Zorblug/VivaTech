@@ -1,14 +1,44 @@
-﻿extends layout
+extends layout
 
 block styles
-  link(rel='stylesheet', href='/css/domino.css')
+  link(rel='stylesheet', href='/css/bootstrap.css')
+  link(rel='stylesheet', href='/css/playerStyle.css')
+
 
 block scripts
-  script(src='/scripts/underscore.js')
+  script(src='/scripts/progressBarSvg.js')
   script(src='/scripts/dominosPlayerInterface.js')
+  script(src='/scripts/jquery-3.0.0.min.js')
   script(src='/scripts/dominoPlayerLoad.js')
 
+
 block content
-  h1= "PLAYER"
-  p Welcome to #{title}
-  button(id='start') START
+
+  #registerPage
+    .row
+      h1 Bienvenue dans DominoJS
+    .row
+      input#playerName( type='text' name='playerName' placeholder='Entrez votre nom')
+    .row
+      button(id='register') Je m'inscris !
+  #startPage
+    .row
+      h1 Prêt à jouer?
+      p#accueil
+    div(class='row' id='startButtonRow')
+      button(id='start') START
+    div(class='row' id='infoBar')
+      p#infobar
+  #handPage
+    .row
+      h1#handPageTitle
+      #hand
+    .row
+      #divProgressBar
+  #shaderPicker
+    .row
+    p#messagePicker Vous ne pouvez pas jouer ce tour. Pioche automatique d'une pièce aléatoire.
+  #gameOver
+    .row
+    h1#winner
+    p#winnerName

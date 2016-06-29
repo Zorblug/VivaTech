@@ -1,0 +1,183 @@
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Light.ttf");
+  font-weight: lighter;
+}
+
+#startPage  {
+  vertical-align: middle;
+}
+
+﻿html,body {
+    background-color: #13A8A4;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#registerPage {
+}
+
+#startPage {
+  display: none;
+}
+
+#handPage {
+  display:none;
+}
+
+.row  {
+  background: none;
+  margin: 0px;
+  font-family: "FuturaStd";
+  text-align: center;
+  margin-top 4vw;
+}
+
+h1  {
+  font-family: "FuturaStd";
+  font-size: 5vw;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px #007e7b;
+  margin-top: 4vw;
+  margin-bottom: 3vw;
+}
+
+p {
+  font-family: "FuturaStd";
+  font-size: 3vw;
+  font-weight: medium;
+  color: white;
+}
+
+::-webkit-input-placeholder {
+   color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;
+}
+
+:-ms-input-placeholder {
+   color: white;
+}
+
+input{
+  background-color: #75cecc;
+  color: white;
+  font-size: 5vw;
+  font-weight: bold;
+  width: 60%;
+  height: 20%;
+  border : solid 0px black;
+  border-radius: 2vw;
+  padding: 2vw;
+  margin-bottom: 3vw;
+}
+
+input:focus {
+  outline:0;
+}
+
+button {
+  background-color: #007e7b;
+  border : solid 0px black;
+  font-size: 5vw;
+  font-weight: bold;
+  color: white;
+  border-radius : 50px;
+  margin-top: 2vw;
+  margin-bottom: 2vw;
+  padding: 1.5vw;
+  box-shadow: 2px 2px 5px #222222;
+}
+
+button:active{
+    box-shadow: none;
+}
+
+button:focus {
+  outline:0;
+}
+
+button[disabled=disabled], button:disabled {
+  background-color: #777777;
+  color: #AAAAAA;
+  box-shadow: none;
+}
+
+#infobar  {
+  background-color: #777777;
+  border : solid 0px black;
+  width: 500px;
+  margin:auto;
+  color: white;
+  border-radius : 20px;
+}
+
+.partElement {
+  width: 15%;
+  margin-top: 10%;
+display: inline-block;
+}
+
+svg.dominoPart  {
+  transform: rotate(90deg);
+}
+
+#divProgressBar {
+  position: absolute;
+  bottom: 3%;
+  left: 25%;
+  width: 50%;
+}
+
+#shaderPicker {
+  z-index: 100;
+  overflow:hidden;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height:100%;
+  margin: 0;
+  padding: 0;
+}
+
+#shaderPicker p {
+  text-align: center;
+  margin: auto;
+  margin-top: 30%;
+  width: 50%;
+  font-weight: bold;
+}
+
+h1#winner {
+  text-align: center;
+  margin-top: 10%;
+}
+
+p#winnerGame  {
+  font-weight: bold;
+text-align: center;
+margin-top: 20%;
+}

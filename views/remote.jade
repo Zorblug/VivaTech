@@ -1,0 +1,26 @@
+doctype html
+extends layout
+
+block styles
+  link(rel='stylesheet', href='/css/remote.css')
+      
+block scripts  
+  script(src='/scripts/fastclick.min.js')    
+  script(src='/scripts/hand.min.js')
+  script(src='/scripts/vector2.js')
+  script(src='/scripts/collection.js')
+  script(src='/scripts/event.js')
+  script(src='/scripts/virtualJoystickEmitter.js')
+  script(src='/scripts/remoteLoad.js')
+
+block content
+  #viewText
+    | START THE GAME
+  #infosText
+    | INFORMATIONS
+  #viewScore
+    | SCORE : 0
+  #lives
+  .container
+    canvas#canvasSurfaceGame
+  #controlView

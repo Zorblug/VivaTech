@@ -147,31 +147,27 @@ Domino.PlayerInterface.prototype.start = function start() {
 Domino.PlayerInterface.prototype.getHand = function getHand() {
     if (this._playerData) {
         var playableInfos;
-        var canPlay = false;
         if (this._actived) {
+            var dom = Domino.PlayerInterface.foundPlayablesDominos(this._playerData.hand, this._currentTable);
             var that = this;
             playableInfos = this._playerData.hand.map(function (currentValue, index, arr) {
-                var info = Domino.PlayerInterface.isDominoPlayable(currentValue, that._currentTable);
-                canPlay = canPlay || info.some(function(tip){ return tip >= 0; });
                 return Domino.PlayerInterface.isDominoPlayable(currentValue, that._currentTable);
             });
         }
         else {
             playableInfos = this._playerData.hand.map(function (currentValue, index, arr) {
-                return [-1, -1];
+                return [false, false];
             });
         }
         return {
             hand : this._playerData.hand,
-            playablesDom: playableInfos,
-            canPlay: canPlay
+            playablesDom: playableInfos
         };
     }
     else {
         return {
             hand : [],
-            playablesDom: [],
-            canPlay: false
+            playablesDom: []
         };
     }
 };
@@ -229,60 +225,53 @@ Domino.PlayerInterface.prototype.onClose = function onClose(callback) {
 };
 
 
-
-
-// /** Retourne la liste des dominos jouables
-//  *  dominosListe    :[array] tableau de dominos a tester
-//  *  table           :[array] dominos posés sur la table
-//  *  return          :[array] [int] index des dominos jouables dans la liste à tester si aucun vide
-//  */
-// Domino.PlayerInterface.foundPlayablesDominos = function foundPlayablesDominos(dominosListe, table) {
-//     return dominosListe.map(function (currentValue, index, arr) {
-//         var playable = Domino.PlayerInterface.isDominoPlayable(currentValue , table).some(function (tip) { return tip === true; });
-//         if (playable) {
-//             return index;
-//         }
-//         else {
-//             return -1;
-//         }
-//     }).filter(function (currentValue, index, arr) { return currentValue >= 0; });
-// };
+/** Retourne la liste des dominos jouables
+ *  dominosListe    :[array] tableau de dominos a tester
+ *  table           :[array] dominos posés sur la table
+ *  return          :[array] [int] index des dominos jouables dans la liste à tester si aucun vide
+ */
+Domino.PlayerInterface.foundPlayablesDominos = function foundPlayablesDominos(dominosListe, table) {
+    return dominosListe.map(function (currentValue, index, arr) {
+        var playable = Domino.PlayerInterface.isDominoPlayable(currentValue , table).some(function (tip) { return tip === true; });
+        if (playable) {
+            return index;
+        }
+        else {
+            return -1;
+        }
+    }).filter(function (currentValue, index, arr) { return currentValue >= 0; });
+};
 
 /** Test si un domino est jouable sur la table à chaque extrémité
  *  domino       : [array] [x,y] domino à tester
  *  table        : [array] dominos posés sur la table
- *  return : [array] [int,int] avec cote possible
- *              en index 0 si il est possible de posé le domino cote x  : ,
- *              en index 1 si il est possible de posé le domino cote y  :
- *                0 : en debut de table
- *                1 : en fin de table
- *                -1: nul part
+ *  return : [array] [boolean,boolean] avec
+ *              en index 0 si il est possible de posé le domino en debut de table,
+ *              en index 1 si il est possible de posé le domino en fin de table
  */
 Domino.PlayerInterface.isDominoPlayable = function isDominoPlayable(domino, table) {
-    var sides = [1, 1];
+    var sides = [true, true];
     if (table.length > 0) {
         var firstTip = table[0][0];
         var lastTip = table[table.length - 1][1];
 
-        if(domino[0] === firstTip){
-          sides[0]=0;
-        }
-        else if (domino[0] === lastTip){
-          sides[0]=1;
+        if (domino.some(function (tip) { return (tip === firstTip); })) {
+            sides[0] = true;
         }
         else {
-          sides[0]=-1;
+            sides[0] = false;
         }
 
-        if(domino[1] === firstTip){
-          sides[1]=0;
-        }
-        else if (domino[1] === lastTip){
-          sides[1]=1;
+        if (domino.some(function (tip) { return (tip === lastTip); })) {
+            sides[1] = true;
         }
         else {
-          sides[1]=-1;
+            sides[1] = false;
         }
+
+        return sides;
     }
-  return sides;
+    else {
+        return sides;
+    }
 };

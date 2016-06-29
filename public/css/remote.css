@@ -1,0 +1,170 @@
+* {
+    -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    text-size-adjust: none; /* prevent webkit from resizing text to fit */
+    /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#viewText {
+    color: white;
+    text-align: center;
+}
+
+#lives {
+    top: 0;
+    border: 50px,50px,50px,50px;
+    float: right;
+    opacity: 0.6;
+}
+
+#viewScore {
+    top: 10px;
+    float: left;
+    color: white;
+    font-size: larger;
+    height: auto;
+}
+
+#infosText {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: larger;
+    font-size: x-large;
+}
+
+#controlView {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: white;
+    background-image: url('../assets/portraittolandscape.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: none;
+}
+
+/* Menu*/
+.mh-menu {
+    height: 385px;
+    width: 600px;
+    margin: 20px auto;
+    position: relative;
+}
+
+    .mh-menu li {
+        width: 300px;
+    }
+
+        .mh-menu li a {
+            display: block;
+            width: 280px;
+            padding: 0 10px;
+            text-align: right;
+            position: relative;
+            z-index: 10;
+            height: 97px;
+            border-right: 1px solid #ddd;
+            background: rgba(0,0,0, 0.2);
+        }
+
+        .mh-menu li:hover a {
+            background: rgba(12,12,12, 0.5);
+        }
+
+        .mh-menu li a span {
+            display: block;
+        }
+
+            .mh-menu li a span:first-child {
+                font-weight: 700;
+                font-size: 16px;
+                color: #ddd;
+                padding-top: 10px;
+                font-family: 'Alegreya SC', Georgia, serif;
+            }
+
+            .mh-menu li a span:nth-child(2) {
+                font-weight: 400;
+                font-style: italic;
+                font-size: 28px;
+                font-family: 'Alegreya SC', Georgia, serif;
+                -webkit-transition: color 0.2s linear;
+                -moz-transition: color 0.2s linear;
+                -o-transition: color 0.2s linear;
+                /*-ms-transition: color 0.2s linear;*/
+                transition: color 0.2s linear;
+            }
+
+        .mh-menu li:nth-child(1):hover span:nth-child(2) {
+            color: #ae3637;
+        }
+
+        .mh-menu li:nth-child(2):hover span:nth-child(2) {
+            color: #c3d243;
+        }
+
+        .mh-menu li:nth-child(3):hover span:nth-child(2) {
+            color: #d38439;
+        }
+
+        .mh-menu li:nth-child(4):hover span:nth-child(2) {
+            color: #8e7463;
+        }
+
+        .mh-menu li img {
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            -webkit-transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
+            -moz-transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
+            -o-transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
+            /*-ms-transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;*/
+            transition: left 0.4s ease-in-out, opacity 0.6s ease-in-out;
+        }
+
+        .mh-menu li:hover img {
+            left: 330px;
+            opacity: 1;
+        }

@@ -1,0 +1,179 @@
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Medium.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family:"FuturaStd";
+  src: url("../fonts/FuturaStd-Light.ttf");
+  font-weight: lighter;
+}
+
+html, body {
+  background-color: #13a8a4;
+  width :2560px;
+  height: 1600px;
+  margin: 0;
+  padding: 0;
+  overflow:hidden;
+}
+
+
+.button-container {
+  position: absolute;
+  width:400px;
+  top: 530px;
+  display: inline-block;
+  text-align: center;
+}
+
+#button-container1  {
+  left: 722px;
+}
+
+#button-container2  {
+  left: 1434px;
+}
+
+.button-container p {
+  font-family: "FuturaStd";
+  font-weight: medium;
+  line-height: 2.5vw;
+  font-size: 2.5vw;
+  width: 300px;
+  font-color: :#263440;
+  margin:auto;
+  margin-top: 2vw;
+}
+
+.button {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 400px;
+  font-family: "FuturaStd";
+  font-weight: bold;
+  color: white;
+  width: 400px;
+  height: 400px;
+  border-radius: 200px;
+  font-size: 220px;
+}
+
+#space {
+  background-color: #263440;
+}
+
+#domino  {
+  background-color: #007e7b;
+}
+
+/* Grow */
+.hvr-grow {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.hvr-grow:hover,
+.hvr-grow:focus,
+.hvr-grow:active {
+    transform: scale(1.1);
+}
+
+/* Wobble To Bottom Right */
+@-webkit-keyframes hvr-wobble-to-bottom-right {
+  16.65% {
+    -webkit-transform: translate(8px, 8px);
+    transform: translate(8px, 8px);
+  }
+
+  33.3% {
+    -webkit-transform: translate(-6px, -6px);
+    transform: translate(-6px, -6px);
+  }
+
+  49.95% {
+    -webkit-transform: translate(4px, 4px);
+    transform: translate(4px, 4px);
+  }
+
+  66.6% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+
+  83.25% {
+    -webkit-transform: translate(1px, 1px);
+    transform: translate(1px, 1px);
+  }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes hvr-wobble-to-bottom-right {
+  16.65% {
+    -webkit-transform: translate(8px, 8px);
+    transform: translate(8px, 8px);
+  }
+
+  33.3% {
+    -webkit-transform: translate(-6px, -6px);
+    transform: translate(-6px, -6px);
+  }
+
+  49.95% {
+    -webkit-transform: translate(4px, 4px);
+    transform: translate(4px, 4px);
+  }
+
+  66.6% {
+    -webkit-transform: translate(-2px, -2px);
+    transform: translate(-2px, -2px);
+  }
+
+  83.25% {
+    -webkit-transform: translate(1px, 1px);
+    transform: translate(1px, 1px);
+  }
+
+  100% {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+
+.hvr-wobble-to-bottom-right {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+}
+.hvr-wobble-to-bottom-right:hover, .hvr-wobble-to-bottom-right:focus, .hvr-wobble-to-bottom-right:active {
+  -webkit-animation-name: hvr-wobble-to-bottom-right;
+  animation-name: hvr-wobble-to-bottom-right;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+}

@@ -6,11 +6,40 @@ html
     title= title
     
     block styles
-  
+    
+    //- style.
+    //-   .console-log-div {
+    //-   z-index: 999;
+    //-   position: absolute;
+    //-   top: 50px,50px;
+    //-   width: 95% !important;
+    //-   height: 90%;      
+    //-   }
+    //-   #log {
+    //-   margin: 10px 0px;
+    //-   display: block;
+    //-   white-space: pre;
+    //-   font-family: monospace;
+    //-   }
+    //-   #log:before {
+    //-   content: "log javascript:";
+    //-   font-style: italic;
+    //-   color: #555;
+    //-   }
+      
     script(src='/scripts/debug.js')
+    script.
+      var config = {};
+      config.address = '#{address}';
+      config.port = '#{port}';
     script(src='/scripts/event.js')
     script(src='/socket.io/socket.io.js')
-    
+    script(src='/scripts/underscore.js')
+    script(src='/scripts/dominoPartGraphic.js')
+    script(src='/scripts/d3.js')
+    script(src='/scripts/jquery-3.0.0.min.js')
+        
     block scripts
   body
+    //- script(src='/scripts/console-log-div.js')
     block content

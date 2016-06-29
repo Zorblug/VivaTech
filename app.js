@@ -1,35 +1,13 @@
 ﻿'use strict';
 
-var debug = require('debug')('DominosApp');
-var bodyParser = require('body-parser');
+var debug = require('debug')('domino.app');
 var express = require('express');
-var logger = require('morgan');
 var path = require('path');
 var favicon = require('serve-favicon');
-var os = require('os');
 
 var dominoGame = require('./routes/dominoGame');
+var remote = require('./routes/remoteScreen');
 var spaceInvadersGame = require('./routes/spaceInvadersGame')
-
-var myIpAdress = '';
-var networkInterfaces = os.networkInterfaces();
-debug(networkInterfaces);
-
-search:
-for (var i in networkInterfaces) {
-    var subNet = networkInterfaces[i];
-
-        for (var j in subNet) {
-            debug('LIST : ' + JSON.stringify(subNet[j]));
-            if ((subNet[j].family == 'IPv4') && (subNet[j].internal == false)) {
-                debug('FOUND : ' + JSON.stringify(subNet[j]));
-                myIpAdress = subNet[j].address;
-                debug('BREAK');
-                break search;
-            }
-        }
-    }
-debug('END LOOP');
 
 var app = express();
 
@@ -43,21 +21,14 @@ app.use(favicon(__dirname + '/public/assets/favicon.png'));
 //app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-pub.use(function (req, res, next) {
+app.use(function (req, res, next) {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');
-
-    res.locals.config.address = myIpAdress;
-    res.locals.config.port = app.settings.port;
-
-    next()
+    res.header('Pragma', 'no-cache');    
+    next();
 });
 
-app.use(logger('dev'));
-
+app.use('/', remote);
 app.use('/domino', dominoGame);
 app.use('/space', spaceInvadersGame);
 
@@ -71,6 +42,8 @@ app.use(function (req, res, next) {
 // development error handler
 // will print stack trace
 if (app.get('env') === 'development') {
+    app.locals.pretty = true;
+
     app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -78,6 +51,9 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
+}
+else {
+  app.locals.pretty = false;
 }
 
 // production error handler
