@@ -1,12 +1,9 @@
-﻿{
-    "verbose": true,
-    "ignore": [
-        ".gitignore",
-        ".git",
-        "*.jade",
-        "node_modules",
-        "public",
-        "test"
-    ],
-    "watch": ["*.js"]
+{
+  "verbose": false,
+  "ignore": [
+    ".gitignore", ".git",
+    "*.jade",
+    "node_modules", "public", "test"
+  ],
+  "watch": "*.js"
 }

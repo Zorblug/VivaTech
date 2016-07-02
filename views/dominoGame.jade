@@ -1,36 +1,32 @@
 ﻿extends layout
 
 block styles
-  link(rel='stylesheet', href='/css/bootstrap.css')
+  //- link(rel='stylesheet', href='/css/bootstrap.css')
   link(rel='stylesheet', href='/css/tableStyle.css')
 
-block scripts  
+block scripts
+  script(src='/scripts/dominoPartGraphicUniversal.js')
   script(src='/scripts/dominosGameInterface.js')
   script(src='/scripts/dominoGameLoad.js')
 
 block content
-  #registerPage
-    .row
-      h1 Bienvenue dans DominoJS.
-    .row      
-      h1 Connectez vous au WiFi, et scanez le tag NFC.
-    .row
-      div(class='row' id='infoBar')
-        p#infobar   
-  #startPage
-    #player1.player(data-pct='100')
-      svg#svg1.timer(width='200', height='200', viewport='0 0 100 100', version='1.1', xmlns='http://www.w3.org/2000/svg')
-        circle(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-        circle#bar1.bar(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-    #player2.player(data-pct='100')
-      svg#svg2.timer(width='200', height='200', viewport='0 0 100 100', version='1.1', xmlns='http://www.w3.org/2000/svg')
-        circle(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-        circle#bar2.bar(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')          
-    #player3.player(data-pct='100')
-      svg#svg3.timer(width='200', height='200', viewport='0 0 100 100', version='1.1', xmlns='http://www.w3.org/2000/svg')
-        circle(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-        circle#bar3.bar(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-    #player4.player(data-pct='100')
-      svg#svg4.timer(width='200', height='200', viewport='0 0 100 100', version='1.1', xmlns='http://www.w3.org/2000/svg')
-        circle(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
-        circle#bar4.bar(r='90', cx='100', cy='100', fill='transparent', stroke-dasharray='565.48', stroke-dashoffset='0')
+  #global
+    #registerPage
+      .row
+        h1 Bienvenue dans DominoJS.
+      .row      
+        h1 Connectez vous au WiFi, et scannez le tag NFC.
+      #infobar.row
+        .row
+          span#info_0
+        .row
+          span#info_1
+        .row
+          span#info_2
+        .row
+          span#info_3  
+    #startPage
+      .row
+        span#infoTurn
+      #table.row
+    #gameover
