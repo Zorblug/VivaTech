@@ -1,4 +1,4 @@
-{
+  {
   "name": "DominosServer",
   "version": "1.0.0",
   "private": true,
@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "cross-env": "^1.0.8",
     "debug": "^2.2.0",
     "express": "~4.9.0",
     "jade": "~1.6.0",
@@ -31,5 +32,9 @@
     "socket.io": "^1.4.6",
     "underscore": "^1.8.3",
     "xml2js": "^0.4.16"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5",
+    "nodemon": "^1.9.1"
   }
 }

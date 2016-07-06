@@ -7,7 +7,7 @@ var favicon = require('serve-favicon');
 
 var dominoGame = require('./routes/dominoGame');
 var remote = require('./routes/remoteScreen');
-var spaceInvadersGame = require('./routes/spaceInvadersGame')
+var spaceInvadersGame = require('./routes/spaceInvadersGame');
 
 var app = express();
 
@@ -22,9 +22,9 @@ app.use(favicon(__dirname + '/public/assets/favicon.png'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
-    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate, max-age=0');
     res.header('Expires', '-1');
-    res.header('Pragma', 'no-cache');    
+    res.header('Pragma', 'no-cache');
     next();
 });
 

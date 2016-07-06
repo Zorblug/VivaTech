@@ -6,7 +6,7 @@ function startAnimations() {
 }
 
 function BroadSignPlay() { //set up
-    startAnimations()
+    startAnimations();
 }
 
 (function () {
