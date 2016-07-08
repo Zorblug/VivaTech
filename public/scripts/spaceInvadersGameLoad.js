@@ -14,7 +14,7 @@ function BroadSignPlay() { //set up
     var init = function init() {
         game = new Phaser.Game(1080, 1920, Phaser.CANVAS, 'gameView');
 
-        console.log('SPACE INVADERS CONNECTE TO : ' + config.address);
+        console.log('GAME CONNECTE TO : ' + config.address);
         game.remoteInput = new VirtualJoystick.Receiver('http://' + config.address + ':' + config.port); //Joystick virtuel
 
         game.remoteInput.connect();
