@@ -18,26 +18,22 @@ function BroadSignPlay() { //set up
         game.remoteInput = new VirtualJoystick.Receiver('http://' + config.address + ':' + config.port); //Joystick virtuel
 
         game.remoteInput.connect();
-        ////#region SPECIAL VERSION SANS BROADSIGN
 
-        ////#region QRCODE
-        //game._qrcodeBackgroud = document.getElementById("qrBackground");
-        //game._qrcode = new QRCode("qrcode", { useSVG: true });
-        //game._qrcode.makeCode('http://' + localip + ':7500/controls');
+        // QRCODE
+        game._qrcodeBackgroud = document.getElementById("qrBackground");
+        game._qrcode = new QRCode("qrcode", { useSVG: true });
+        game._qrcode.makeCode('http://' + config.addressRemote + ':' + config.port);
 
-        //game.clearQR = function () {
-        //    game._qrcode.clear();
-        //    game._qrcodeBackgroud.hidden = true;
+        game.clearQR = function () {
+           game._qrcode.clear();
+           game._qrcodeBackgroud.hidden = true;
 
-        //};
+        };
 
-        //game.activeQR = function () {
-        //    game._qrcode.makeCode('http://' + localip + ':7500/controls');
-        //    game._qrcodeBackgroud.hidden = false;
-
-        //};
-        ////#endregion
-        ////#endregion
+        game.activeQR = function () {
+           game._qrcode.makeCode('http://' + config.addressRemote + ':' + config.port);
+           game._qrcodeBackgroud.hidden = false;
+        };
 
         game.state.add('game', SpaceInvaders.Game);
         game.state.add('result', SpaceInvaders.Result);
