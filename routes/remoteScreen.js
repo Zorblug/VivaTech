@@ -1,4 +1,4 @@
-var debug = require('debug')('domino.remote');
+var debug = require('debug')('jcdecaux.remote.router');
 var express = require('express');
 var router = express.Router();
 

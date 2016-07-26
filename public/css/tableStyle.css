@@ -63,6 +63,23 @@ html {
 #registerPage {
 }
 
+#qrBackground{
+  background-color: rgba(255,255,255,0.9);
+  width: 400px;
+  height: 400px;
+  z-index: 100;
+  margin: auto;
+}
+
+#qrcode {
+    background-color:white;
+    margin: 25px 25px;
+    position: relative;
+    top: 25px;
+    left: 0;
+    z-index: 100;
+}
+
 #startPage  {
   vertical-align: middle;
   display: none;

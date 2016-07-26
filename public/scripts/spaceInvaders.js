@@ -715,7 +715,7 @@ SpaceInvaders.Game.prototype = {
         this.thePlayers.create();
 
         //  Texte
-        this.stateText = this.add.text(this.world.centerX, 200, ' connect to WiFi\r\nand scan NFC tag.', { font: '80px Arial', fill: '#ffc600' });
+        this.stateText = this.add.text(this.world.centerX, 200, ' connect to WiFi\r\nand scan NFC tag\r\n  or QR code.', { font: '80px Arial', fill: '#ffc600' });
         this.stateText.anchor.setTo(0.5, 0);
         this.stateText.visible = true;
 

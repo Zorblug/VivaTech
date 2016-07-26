@@ -5,9 +5,16 @@ block styles
   link(rel='stylesheet', href='/css/tableStyle.css')
 
 block scripts
+  script(src='/scripts/jquery-3.0.0.min.js')
+  script(src='/scripts/underscore.js')
+  script(src='/scripts/d3.js')
   script(src='/scripts/dominoPartGraphicUniversal.js')
   script(src='/scripts/dominosGameInterface.js')
   script(src='/scripts/dominoGameLoad.js')
+  script(src='/scripts/qrcode.js')
+  script.
+    var config = config || {};
+    config.addressRemote = '#{addressRemote}';
 
 block content
   #global
@@ -15,7 +22,9 @@ block content
       .row
         h1 Bienvenue dans DominoJS.
       .row      
-        h1 Connectez vous au WiFi, et scannez le tag NFC.
+        h1 Connectez vous au WiFi, et scannez le tag NFC ou le QR code.
+      #qrBackground.row
+        #qrcode
       #infobar.row
         .row
           span#info_0

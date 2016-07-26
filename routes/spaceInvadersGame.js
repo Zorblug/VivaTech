@@ -1,4 +1,4 @@
-var debug = require('debug')('domino.spacerouter');
+var debug = require('debug')('jcdecaux.spaceinvaders.router');
 var express = require('express');
 var router = express.Router();
 

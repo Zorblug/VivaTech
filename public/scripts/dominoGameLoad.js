@@ -7,12 +7,17 @@
     var dominoTableList = new Array(55);
     var dominosObserver = new Domino.GameInterface('http://' + config.address + ':' + config.port);
 
+
     document.addEventListener("DOMContentLoaded", init);
 
     function init() {
         console.log("LISTE : " + dominoPosition.length + ' - ' + dominoTableList.length);
         dominoTableList = dominoTableList.map(function(val){ return undefined; });
         d3.select('#table').append('svg').attr('viewBox','0 0 980 1820').attr('id', 'partArea');
+        // QRCODE
+        var qrcode = new QRCode("qrcode", { useSVG: true });
+        qrcode.makeCode('http://' + config.addressRemote + ':' + config.port);
+
         dominosObserver.onNewPlayer(function (data) {
             console.log('NEW PLAYER :' + JSON.stringify(data));
             if(data.player.idx === 0) {
