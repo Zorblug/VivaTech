@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var debug = require('debug')('jcdecaux.app');
+var debug = require('debug')('jcdecaux.server');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -52,9 +52,9 @@ if (app.get('env') === 'development') {
         });
     });
 }
-// else {
-//   app.locals.pretty = false;
-// }
+else {
+    app.locals.pretty = false;
+}
 
 // production error handler
 // no stack traces leaked to user

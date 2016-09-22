@@ -637,7 +637,7 @@ SpaceInvaders.Game.prototype = {
             if (!that.gameStarted) {
                 that.gameStarted = true;
 
-                //that.game.clearQR(); //QR Code sur page d'accueil
+                that.game.clearQR(); //QR Code sur page d'accueil
 
                 that.stateText.visible = false;
                 that.title.visible = false;
@@ -702,7 +702,7 @@ SpaceInvaders.Game.prototype = {
 
         this.gameStarted = false;
 
-        //this.remoteInput.connect();
+        this.remoteInput.connect();
 
         this.stage.setBackgroundColor(0xffffff);
         //this.stage.setBackgroundColor(0xff0000);
@@ -730,7 +730,7 @@ SpaceInvaders.Game.prototype = {
         this.litleExplosions.create();
         this.bigExplosions.create();
 
-        //this.game.activeQR(); //QRcode sur ma page d'acceuil
+        this.game.activeQR(); //QRcode sur ma page d'acceuil
     },
     update: function () {
         //  Scroll le fond
@@ -739,8 +739,8 @@ SpaceInvaders.Game.prototype = {
         //PLAYERS
         this.thePlayers.update(this.theAliens);
         this.theAliens.updateAutoCollide();//Collision entre aliens
-    },
-    render: function () {
+    } //,
+    // render: function () {
 
 
         //this.game.debug.bodyInfo(this.theAliens.aliens.children[3], 50, 400);
@@ -768,7 +768,7 @@ SpaceInvaders.Game.prototype = {
     //},
     //shutdown: function () {
     //    console.log('SHUTDOWN');
-    }
+    // }
     //#endregion
 };
 

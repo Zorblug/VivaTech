@@ -24,15 +24,17 @@ body {
     position: absolute;
     top: 550px;
     left: 340px;
-    width:400px;
-    height:400px;
+    width:300px;
+    height:300px;
     z-index: 100;
 }
 
 #qrcode {
     background-color:white;
-    margin: 50px 50px;
+    /*margin: 50px 50px;*/
+    padding: 50px;
     position: relative;
+    width: 100%;
     top: 0;
     left: 0;
     z-index: 100;
