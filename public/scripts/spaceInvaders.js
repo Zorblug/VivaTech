@@ -782,8 +782,6 @@ SpaceInvaders.Result = function (game) {
 
 };
 
-
-
 SpaceInvaders.Result.prototype = {
     init: function () {
 
