@@ -27,12 +27,12 @@ html
     //-   color: #555;
     //-   }
       
-    script(src='/scripts/debug.js')
+    script(src='/common/debug.min.js')
     script.
       var config = {};
       config.address = '#{address}';
       config.port = '#{port}';
-    script(src='/scripts/event.js')
+    script(src='/common/event.min.js')
     script(src='/socket.io/socket.io.js')
                 
     block scripts

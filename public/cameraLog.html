@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>TEST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" , href="/bootstrap/css/bootstrap.css" />
+
+    <script src="/jquery/jquery.js"></script>
+    <script src="/es6-promise/es6-promise.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="/bootstrap/js/bootstrap.js"></script>
+    <script src="/vue/vue.js"></script>
+    <script src="/vue-resource/vue-resource.js"></script>
+    <script>
+        var config = config || {};
+        config.address = '192.168.240.1';
+        config.port = 3000;
+    </script>    
+    <script src="/scripts/cameraLoad.js"></script>
+</head>
+
+<body>
+    <div id="controller" class="container-fluid background">
+        <div>
+          <h1><span class="label label-default">Nombre de détection :&nbsp;{{count}}</span></h1>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Gender
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
+                            Directions
+                        </th>
+                        <th>
+                            Gaze
+                        </th>                        
+                    </tr>
+                </thead>
+                <tbody>                   
+                    <tr v-for="item in detect">
+                        <td>
+                            {{item.gender.value}}&nbsp;<span class="badge">{{item.gender.acc}}%</span>
+                        </td>
+                        <td>
+                            {{item.age.value}}&nbsp;<span class="badge">{{item.age.acc}}%</span>
+                        </td>
+                        <td>
+                            {{item.direction.leftRight}}°&nbsp;/&nbsp;{{item.gaze.updown}}°
+                        </td>
+                        <td>
+                            {{item.gaze.leftRight}}°&nbsp;/&nbsp;{{item.gaze.updown}}°
+                        </td>                       
+                    </tr>                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

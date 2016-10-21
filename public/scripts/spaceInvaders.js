@@ -1,20 +1,17 @@
-﻿/// <reference path="..\lib\phaser.js" />
-/// <reference path="..\lib\collection.js" />
-/// <reference path="..\lib\event.js" />
-/// <reference path="..\lib\virtualJoystick.js" />
+﻿/// <reference path="..\..\node_modules\phaser\build\phaser.js" />
+/// <reference path="..\..\common\collection.js" />
+/// <reference path="..\..\common\event.js" />
 
 'use strict';
 
 var SpaceInvaders = SpaceInvaders || {};//Espace de nom SpaceInvaders
 
-
-
 //#region CREATION DES ALIENS
 SpaceInvaders.Alien = function (game, x, y, key) {
-    Phaser.Sprite.call(this, game, x, y,'ufo', key + '0');//Herite d'un sprite
+    Phaser.Sprite.call(this, game, x, y, 'ufo', key + '0');//Herite d'un sprite
 
     //this.anchor.setTo(0.5, 0.5);
-    this.animations.add('fly', Phaser.Animation.generateFrameNames(key,0, 1, '', 1), 5, true);
+    this.animations.add('fly', Phaser.Animation.generateFrameNames(key, 0, 1, '', 1), 5, true);
     this.animations.play('fly');
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
@@ -33,7 +30,7 @@ SpaceInvaders.Alien.prototype = Object.create(Phaser.Sprite.prototype, {
     constructor: SpaceInvaders.Alien
 });
 
-SpaceInvaders.Alien.Keys = ['Bleu-','Rouge-','Jaune-','Multicolor-', 'Vert-'];
+SpaceInvaders.Alien.Keys = ['Bleu-', 'Rouge-', 'Jaune-', 'Multicolor-', 'Vert-'];
 
 SpaceInvaders.Alien.preload = function () {
     game.load.atlas('ufo', '/assets/ufo.png', '/assets/ufo.json');
@@ -62,6 +59,8 @@ SpaceInvaders.Aliens = function (game) {
 
 SpaceInvaders.Aliens.prototype = {
     _createAliensAttack: function () {
+        this.indexSprites = 0;
+
         if (this.tween == undefined) {
             this.tween = this.game.add.tween(this.aliens);
         }
@@ -71,10 +70,11 @@ SpaceInvaders.Aliens.prototype = {
         this.firingDelay = 2000;
 
         this._createAliens();
-        //  mouvement du groupe d 'aliens
-        this.tween.to({ x: 339}, 2000, Phaser.Easing.Linear.None, true, 0, 1, true);
         this.tween.onComplete.addOnce(this._alienGoBack, this);
         this.tween.onLoop.add(this._createAliens, this);
+        //  mouvement du groupe d 'aliens
+        this.tween.to({ x: 339 }, 2000, Phaser.Easing.Linear.None, true, 0, 2, true);
+
     },
     _alienGoBack: function () {
         this.firingDelay = 1500;
@@ -92,13 +92,15 @@ SpaceInvaders.Aliens.prototype = {
         }
     },
     _createAliens: function () {
-        var invaderColor = SpaceInvaders.Alien.Keys[this.indexSprites];
-        for (var x = 0; x < 4; x++) {
-            this.aliens.add(new SpaceInvaders.Alien(this.game, x * 200, 0, invaderColor));
-        }
-        this.indexSprites += 1;
-        if (this.indexSprites >= SpaceInvaders.Alien.Keys.length) {
-            this.indexSprites = 0;
+        if (this.indexSprites < SpaceInvaders.Alien.Keys.length) {
+            var invaderColor = SpaceInvaders.Alien.Keys[this.indexSprites];
+
+            for (var x = 0; x < 4; x++) {
+                var newAlien = new SpaceInvaders.Alien(this.game, x * 200, 0, invaderColor);
+                newAlien.scorePoint += (10 * this.indexSprites);
+                this.aliens.add(newAlien);
+            }
+            this.indexSprites += 1;
         }
     },
     _alienHitsPlayer: function (player, bullet) {
@@ -136,7 +138,7 @@ SpaceInvaders.Aliens.prototype = {
         }
         else {
             //  Ptit KABOUM
-            this.shotAnimation.play(player.body.x + 15, player.body.y-10);
+            this.shotAnimation.play(player.body.x + 15, player.body.y - 10);
         }
     },
     preload: function () {
@@ -163,12 +165,12 @@ SpaceInvaders.Aliens.prototype = {
         this.aliens.physicsBodyType = Phaser.Physics.ARCADE;
 
         this.aliens.x = 0;
-        this.aliens.y = 0 ;
+        this.aliens.y = 0;
 
         this.shotAnimation = shotAnimation;
         this.destroyAnimation = destroyAnimation;
     },
-    update: function(player){
+    update: function (player) {
         if (this.game.time.now > this.firingTimer) {
             this.fire(player)
         }
@@ -179,11 +181,11 @@ SpaceInvaders.Aliens.prototype = {
         this.game.physics.arcade.collide(this.aliens);
     },
     fire: function (player) {
-       var bullet = this.enemyBullets.getFirstExists(false);
+        var bullet = this.enemyBullets.getFirstExists(false);
 
-       var livingEnemies = [];
+        var livingEnemies = [];
 
-       this.aliens.forEachAlive(function (alien) {
+        this.aliens.forEachAlive(function (alien) {
             livingEnemies.push(alien);
         });
 
@@ -250,7 +252,7 @@ SpaceInvaders.Ship = function (game, x, y, keyIndex) {
     this.exists = false;
     this.alive = false;
 
-    this.animations.add('player_fly', Phaser.Animation.generateFrameNames(SpaceInvaders.Ship.Keys[keyIndex] , 1, 4, '', 1), 20, true);
+    this.animations.add('player_fly', Phaser.Animation.generateFrameNames(SpaceInvaders.Ship.Keys[keyIndex], 1, 4, '', 1), 20, true);
     this.play('player_fly');
 
     this.id = undefined;
@@ -287,7 +289,7 @@ SpaceInvaders.Ship.prototype.fire = function () {
 };
 
 var playerVelocity = 200;
-SpaceInvaders.Player =  function (parent, player, joystick) {
+SpaceInvaders.Player = function (parent, player, joystick) {
     this.parent = parent;
     //Control
     this.joystick = joystick;
@@ -300,7 +302,7 @@ SpaceInvaders.Player =  function (parent, player, joystick) {
 
 SpaceInvaders.Player.prototype = {
     constructor: SpaceInvaders.Player,
-    destroy:function(){
+    destroy: function () {
         console.log('Delete Player : ' + this.joystick.id);
         this.player.reset(100 + (100 * this.player.index), 1800);
         this.player.kill();
@@ -334,7 +336,7 @@ SpaceInvaders.Player.prototype = {
         if (this.joystick.button > 0) {
 
             if (this.joystick.button > 1) {
-                this.parent.events.fire('playerStartGame',{ id: this.joystick.id, data: this.joystick.button });
+                this.parent.events.fire('playerStartGame', { id: this.joystick.id, data: this.joystick.button });
             } else {
                 //FIRE
                 this.player.fire();
@@ -386,15 +388,15 @@ SpaceInvaders.PlayerGroup.prototype = {
                     this.game.physics.arcade.moveToObject(alien, player.player, 200);
                 }
 
-                alien.scorePoint *= 2;
+                alien.scorePoint += 20;
             }
         }
 
         this.events.fire('playerHitAlien', { id: bullet.id, point: point });
     },
-    _playersCollide:function(playerA,playerB){
+    _playersCollide: function (playerA, playerB) {
         console.log("COLLISION : " + playerA.id + " : " + playerB.id);
-        this.events.fire('playersCollide', { A: playerA.id, B:playerB.id });
+        this.events.fire('playersCollide', { A: playerA.id, B: playerB.id });
     },
 
     fire: function (player) {
@@ -458,13 +460,14 @@ SpaceInvaders.PlayerGroup.prototype = {
         }
         //this.players.remove(id);
     },
-    removeAll:function() {
-        this.players.forEach(function(item) {
-            item.destroy(); });
+    removeAll: function () {
+        this.players.forEach(function (item) {
+            item.destroy();
+        });
         this.players.clear();
     },
 
-    winner:function(){
+    winner: function () {
         //Cherche le vainceur
         var winner = undefined;
 
@@ -515,7 +518,7 @@ SpaceInvaders.Explosions.prototype = {
             explosion.animations.add(this.name);
         }, this);
     },
-    play: function (x,y) {
+    play: function (x, y) {
         var explosion = this.explosions.getFirstExists(false);
         if (explosion) {
             explosion.reset(x, y);
@@ -549,7 +552,7 @@ SpaceInvaders.Game = function (game) {
 }
 
 SpaceInvaders.Game.prototype = {
-    _showPLayerCount : function() { //ENVOIE LE NOMBRE DE JOUEUR CONNECTE
+    _showPLayerCount: function () { //ENVOIE LE NOMBRE DE JOUEUR CONNECTE
         var count = this.thePlayers.countLiving();
         this.remoteInput.broadcast({ state: 'team', player: count });
 
@@ -570,7 +573,7 @@ SpaceInvaders.Game.prototype = {
             that.game.state.start("result");
         }, gameOverTimeOut);
     },
-    _sendPlayerCollide: function(id) { //ENVOIE COLLISION ENTRE JOUEURS
+    _sendPlayerCollide: function (id) { //ENVOIE COLLISION ENTRE JOUEURS
         var player = this.thePlayers.players.item(id);
         if (player) {
             player.joystick.send({ state: 'collide' });
@@ -715,7 +718,9 @@ SpaceInvaders.Game.prototype = {
         this.thePlayers.create();
 
         //  Texte
-        this.stateText = this.add.text(this.world.centerX, 200, ' connect to WiFi\r\nand scan NFC tag\r\n  or QR code.', { font: '80px Arial', fill: '#ffc600' });
+        // var welcomeText =  (parseInt(this.game.countWoman) >= 1)?'                Hello, Madam,':'                  Hello, Sir,';
+        var welcomeText ='                      Hello,';
+        this.stateText = this.add.text(this.world.centerX, 200, welcomeText + '\r\n          welcome to playground\r\n  connect to WiFi JCDecaux Gaming\r\nand get game pad by NFC or QR code', { font: '60px Arial', fill: '#ffc600' });
         this.stateText.anchor.setTo(0.5, 0);
         this.stateText.visible = true;
 
@@ -743,28 +748,28 @@ SpaceInvaders.Game.prototype = {
     // render: function () {
 
 
-        //this.game.debug.bodyInfo(this.theAliens.aliens.children[3], 50, 400);
-        //this.game.debug.body(this.theAliens.aliens.children[3]);
+    //this.game.debug.bodyInfo(this.theAliens.aliens.children[3], 50, 400);
+    //this.game.debug.body(this.theAliens.aliens.children[3]);
 
 
 
-        //this.debug.bodyInfo(theAliens.aliens.children[4], 50, 500);
-        //this.debug.body(theAliens.aliens.children[4]);
-        //for (var i = 0; i < theAliens.aliens.length; i++)
-        // {
-        //    this.debug.body(theAliens.aliens.children[i]);
-        // }
+    //this.debug.bodyInfo(theAliens.aliens.children[4], 50, 500);
+    //this.debug.body(theAliens.aliens.children[4]);
+    //for (var i = 0; i < theAliens.aliens.length; i++)
+    // {
+    //    this.debug.body(theAliens.aliens.children[i]);
+    // }
 
 
-        //for (var i = 0; i < thePlayers.playersGroup.length; i++)
-        // {
-        //    this.debug.body(thePlayers.playersGroup.children[i]);
-        //}
+    //for (var i = 0; i < thePlayers.playersGroup.length; i++)
+    // {
+    //    this.debug.body(thePlayers.playersGroup.children[i]);
+    //}
 
-        //for (var i = 0; i < litleExplosions.explosions.length; i++)
-        //{
-        //    this.debug.body(litleExplosions.explosions.children[i]);
-        //}
+    //for (var i = 0; i < litleExplosions.explosions.length; i++)
+    //{
+    //    this.debug.body(litleExplosions.explosions.children[i]);
+    //}
     //},
     //shutdown: function () {
     //    console.log('SHUTDOWN');
@@ -785,12 +790,15 @@ SpaceInvaders.Result.prototype = {
     },
     preload: function () {
         console.log('PRELOAD SCORE');
-        //this.load.image('fusee_Bleu', 'assets/fusee_Bleu.png');
-        //this.load.image('fusee_Jaune', 'assets/fusee_Jaune.png');
-        //this.load.image('fusee_Rouge', 'assets/fusee_Rouge.png');
-        //this.load.image('fusee_Vert', 'assets/fusee_Vert.png');
-        //this.load.image('fusee_Violet', 'assets/fusee_Violet.png');
-        //this.load.image('fusee_Gris', 'assets/fusee_Gris.png');
+
+        this.load.image('starfield', '/assets/starfield.png');
+
+        this.load.image('fusee_Bleu', '/assets/fusee_Bleu.png');
+        this.load.image('fusee_Jaune', '/assets/fusee_Jaune.png');
+        this.load.image('fusee_Rouge', '/assets/fusee_Rouge.png');
+        this.load.image('fusee_Vert', '/assets/fusee_Vert.png');
+        this.load.image('fusee_Violet', '/assets/fusee_Violet.png');
+        this.load.image('fusee_Gris', '/assets/fusee_Gris.png');
     },
     create: function () {
         console.log('CREATE SCORE');
@@ -799,13 +807,6 @@ SpaceInvaders.Result.prototype = {
         this.starfield = this.add.tileSprite(0, 0, 1080, 1920, 'starfield');
 
         this.add.text(this.world.centerX, 200, 'SCORE', { font: '90px Arial', fill: '#ffc600', align: 'center' }).anchor.setTo(0.5, 0);;
-
-        //this.game.add.image(this.world.centerX / 2, 300, 'fusee_Jaune');
-        //this.game.add.image(this.world.centerX / 2, 500, 'fusee_Rouge');
-        //this.game.add.image(this.world.centerX / 2, 700, 'fusee_Vert');
-        //this.game.add.image(this.world.centerX / 2, 900, 'fusee_Violet');
-        //this.game.add.image(this.world.centerX / 2, 1100, 'fusee_Gris');
-
 
         var index = 0;
         var that = this;

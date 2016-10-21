@@ -1,18 +1,20 @@
 extends layout
 
 block styles
-  link(rel='stylesheet', href='/css/spaceinvaders.css')
+  link(rel='stylesheet', href='/css/spaceinvaders.min.css')
 
 block scripts
-  script(src='/scripts/collection.js')
-  script(src='/scripts/phaser.min.js')  
-  script(src='/scripts/qrcode.min.js')  
+  script(src='/common/collection.min.js')
+  script(src='/phaser/phaser.min.js')  
+  script(src='/common/qrcode.min.js')  
   script(src='/scripts/spaceInvaders.js')
   script(src='/scripts/virtualJoystickReceiver.js')
   script(src='/scripts/spaceInvadersGameLoad.js')
   script.
     var config = config || {};
     config.addressRemote = '#{addressRemote}';  
+    config.countWoman = '#{woman}';
+    config.countMan = '#{man}';
 
 block content
   #gameView

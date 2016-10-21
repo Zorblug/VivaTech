@@ -1,0 +1,46 @@
+extends layout
+
+block styles
+  link(rel='stylesheet', ,='', href='/bootstrap/css/bootstrap.css')
+
+block scripts
+  script(src='/jquery/jquery.js')
+  script(src='/es6-promise/es6-promise.js')
+  script(src='/socket.io/socket.io.js')
+  script(src='/bootstrap/js/bootstrap.js')
+  script(src='/vue/vue.js')
+  script(src='/vue-resource/vue-resource.js')
+  script.
+    var config = config || {};
+    config.address = '#{addressRemote}';
+  script(src='/scripts/cameraLoad.js')
+
+block content
+  #controller.container-fluid.background
+    div
+      h1
+        span.label.label-default Nombre de d&eacute;tection :&nbsp;{{count}}
+    .table-responsive
+      table.table
+        thead
+          tr
+            th
+              | Gender
+            th
+              | Age
+            th
+              | Directions
+            th
+              | Gaze
+        tbody
+          tr(v-for='item in detect')
+            td
+              | {{item.gender.value}} 
+              span.badge {{item.gender.acc}}%
+            td
+              | {{item.age.value}} 
+              span.badge {{item.age.acc}}%
+            td
+              | {{item.direction.leftRight}}° / {{item.gaze.updown}}°
+            td
+              | {{item.gaze.leftRight}}° / {{item.gaze.updown}}°

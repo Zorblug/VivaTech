@@ -35,6 +35,9 @@ function BroadSignPlay() { //set up
            game._qrcodeBackgroud.hidden = false;
         };
 
+        game.countMan = config.countMan;
+        game.countWoman = config.countWoman;
+
         game.state.add('game', SpaceInvaders.Game);
         game.state.add('result', SpaceInvaders.Result);
         game.state.start('game');

@@ -22,8 +22,8 @@ body {
     background-color:rgba(255,255,255,0.9);
     margin: 0 0;
     position: absolute;
-    top: 550px;
-    left: 340px;
+    top: 570px;
+    left: 350px;
     width:300px;
     height:300px;
     z-index: 100;
@@ -32,7 +32,7 @@ body {
 #qrcode {
     background-color:white;
     /*margin: 50px 50px;*/
-    padding: 50px;
+    padding: 25px;
     position: relative;
     width: 100%;
     top: 0;

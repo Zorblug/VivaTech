@@ -1,5 +1,6 @@
 var debug = require('debug')('jcdecaux.remote.router');
 var express = require('express');
+
 var router = express.Router();
 
 /* GET home page. */
@@ -22,7 +23,7 @@ router.post('/home', function (req, res) {
     req.app.locals.brCtrl.reArmPushNFC(0);
 
     //req.app.locals.brCtrl.loopNFC([109229290, 109229332, 109229365, 109229476]);//Deauville
-
+    req.app.locals.brCtrl.resetNoCameraTrig();
     res.sendStatus(200);
 });
 

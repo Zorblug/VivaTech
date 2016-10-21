@@ -2,27 +2,29 @@
 
 block styles
   //- link(rel='stylesheet', href='/css/bootstrap.css')
-  link(rel='stylesheet', href='/css/tableStyle.css')
+  link(rel='stylesheet', href='/css/tableStyle.min.css')
 
 block scripts
-  script(src='/scripts/jquery-3.0.0.min.js')
-  script(src='/scripts/underscore-min.js')
-  script(src='/scripts/d3.js')
-  script(src='/scripts/dominoPartGraphicUniversal.js')
-  script(src='/scripts/dominosGameInterface.js')
-  script(src='/scripts/dominoGameLoad.js')
-  script(src='/scripts/qrcode.min.js')
+  script(src='/jquery/jquery.min.js')
+  script(src='/underscore/underscore-min.js')
+  script(src='/d3/d3.min.js')
+  script(src='/common/qrcode.min.js')
+  script(src='/scripts/dominoPartGraphicUniversal.min.js')
+  script(src='/scripts/dominosGameInterface.min.js')
+  script(src='/scripts/dominoGameLoad.min.js')
   script.
     var config = config || {};
     config.addressRemote = '#{addressRemote}';
-
+    config.countWoman = '#{woman}';
+    config.countMan = '#{man}';
+    
 block content
   #global
     #registerPage
       .row
         h1 Bienvenue dans DominoJS.
       .row      
-        h1 Connectez vous au WiFi, et scannez le tag NFC ou le QR code.
+        h2 Connectez vous au WiFi JCDecaux Gaming, et scannez le tag NFC ou le QR code.
       #qrBackground.row
         #qrcode
       #infobar.row

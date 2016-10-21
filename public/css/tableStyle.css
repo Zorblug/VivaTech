@@ -65,8 +65,8 @@ html {
 
 #qrBackground{
   /*background-color: rgba(255,255,255,0.9);*/
-  width: 400px;
-  height: 400px;
+  width: 300px;
+  height: 300px;
   z-index: 100;
   margin: auto;
 }
@@ -74,10 +74,10 @@ html {
 #qrcode {
     background-color:white;
     /*margin: 25px 25px;*/
-    padding: 50px;
+    padding: 20px;
     position: relative;
     width: 100%;
-    top: 25px;
+    top: 1px;
     left: -50px;
     z-index: 100;
 }
@@ -153,14 +153,24 @@ html {
 
 h1  {
   font-family: "FuturaStd";
-  font-size: 5vw;
+  font-size: 4vw;
   font-weight: bold;
   color: white;
   width: 800px;
   margin: auto;
   margin-top: 4vw;
   margin-bottom: 3vw;
+}
 
+h2  {
+  font-family: "FuturaStd";
+  font-size: 3vw;
+  font-weight: bold;
+  color: white;
+  width: 800px;
+  margin: auto;
+  margin-top: 4vw;
+  margin-bottom: 3vw;
 }
 
 #infobar .row span {
