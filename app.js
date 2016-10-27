@@ -33,7 +33,7 @@ app.use('/common', express.static(path.join(__dirname, 'common'))); // Chemin po
 
 // Chemin pour les librairies installer par npm
 app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist'))); 
-app.use('/d3', express.static(path.join(__dirname, 'node_modules/d3/build')));
+app.use('/d3', express.static(path.join(__dirname, 'node_modules/d3')));
 app.use('/es6-promise', express.static(path.join(__dirname, 'node_modules/es6-promise/dist')));
 app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
 app.use('/moment', express.static(path.join(__dirname, 'node_modules/moment/min')));

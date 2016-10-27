@@ -113,6 +113,10 @@ dominosGameServer.Events.on('close', function (param) {
     ResetNoCameraTrig();
   }, 10000);
 });
+dominosGameServer.Events.on('init', function () {
+  debug('START GAME DOMINOS EVENTS');
+  setNoCameraTrig();
+});
 
 var serverJoystick = new VirtualJoystickServer(attachWebSockets.io, 45);
 serverJoystick.init();
@@ -173,18 +177,17 @@ function CameraCallback(answer) {
     if ((infos.count > 2) && (infos.count < 5)) {
       countForSpaceInvaders = 0;
       countForDominos++;
-      if (countForDominos > 1) {
+      if (countForDominos > 2) {
         debug('DOMINOS TRIGGER');
         setNoCameraTrig();
         app.locals.brCtrl.pushTrigger(DominoTriggerId);
         app.locals.brCtrl.reArmPushNFC(0);
       }
     }
-
-    if ((infos.count === 1) || (infos.count > 4)) {
+    else if ((infos.count >= 1) || (infos.count > 4)) {
       countForDominos = 0;
       countForSpaceInvaders++;
-      if (countForSpaceInvaders > 1) {
+      if (countForSpaceInvaders > 2) {
         debug('ALIENS TRIGGER');
         setNoCameraTrig();
         app.locals.brCtrl.pushTrigger(SpaceInvadersTriggerId);

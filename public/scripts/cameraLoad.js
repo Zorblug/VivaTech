@@ -1,7 +1,7 @@
 'use strict';
 
-(function load() {  
-  var url ='http://' + config.address + ':' + config.port; 
+(function load() {
+  var url = 'http://' + config.address + ':' + config.port;
 
   var init = function init() {
     var data = {
@@ -10,7 +10,7 @@
         gender: { value: 'F', acc: 55 },
         age: { value: 28, acc: 89 },
         direction: { leftRight: 5, updown: 0 },
-        gaze: { leftRight: 5, updown: 0 }        
+        gaze: { leftRight: 5, updown: 0 }
       },
       {
         gender: { value: 'H', acc: 33 },
@@ -18,7 +18,7 @@
         direction: { leftRight: 5, updown: 0 },
         gaze: { leftRight: 20, updown: -10 }
       }]
-    }
+    };
 
     var crt = new Vue({
       el: '#controller',
@@ -44,7 +44,7 @@
           }
         }
       }
-    })
+    });
 
     var mySocket = io.connect(url + '/camera')
     console.log('STARTED !!!')
@@ -52,9 +52,8 @@
       console.log('DETECTION: ' + JSON.stringify(newData));
       data.count = newData.count
       crt.camera = newData
-    })
-
-  }
+    });
+  };
 
   document.addEventListener('DOMContentLoaded', init)
-})()
+})();

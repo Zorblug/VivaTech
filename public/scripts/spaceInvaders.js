@@ -545,6 +545,7 @@ SpaceInvaders.Game = function (game) {
 
     this.fontText;
     this.stateText;
+    this.welcomeText;
 
     this.title;
 
@@ -642,6 +643,7 @@ SpaceInvaders.Game.prototype = {
 
                 that.game.clearQR(); //QR Code sur page d'accueil
 
+                that.welcomeText.visible = false;
                 that.stateText.visible = false;
                 that.title.visible = false;
 
@@ -718,9 +720,35 @@ SpaceInvaders.Game.prototype = {
         this.thePlayers.create();
 
         //  Texte
-        // var welcomeText =  (parseInt(this.game.countWoman) >= 1)?'                Hello, Madam,':'                  Hello, Sir,';
-        var welcomeText ='                      Hello,';
-        this.stateText = this.add.text(this.world.centerX, 200, welcomeText + '\r\n          welcome to playground\r\n  connect to WiFi JCDecaux Gaming\r\nand get game pad by NFC or QR code', { font: '60px Arial', fill: '#ffc600' });
+        var numMale = parseInt(this.game.countMan);
+        var numFemale = parseInt(this.game.countWoman);
+
+        var welcomeString = 'Hello ';
+        if (numFemale > 0) {
+            if (numFemale > 1) {
+                welcomeString += 'Ladies';
+            }
+            else {
+                welcomeString += 'Madam';
+            }
+            if(numMale > 0) {
+                welcomeString += ' and ';
+            }
+        }
+        if (numMale > 0) {
+            if (numMale > 1) {
+                welcomeString += 'Gentlemen';
+            }
+            else {
+                welcomeString += 'Sir';
+            }
+        }
+        welcomeString +=', (' + numMale + '/' + numFemale + ').';
+        this.welcomeText = this.add.text(this.world.centerX, 200, welcomeString, { font: '60px Arial', fill: '#ffc600' });
+        this.welcomeText.anchor.setTo(0.5, 0);
+        this.welcomeText.visible = true;
+
+        this.stateText = this.add.text(this.world.centerX, 270, '          welcome to playground\r\n  connect to WiFi JCDecaux Gaming\r\nand get game pad by NFC or QR code', { font: '60px Arial', fill: '#ffc600' });
         this.stateText.anchor.setTo(0.5, 0);
         this.stateText.visible = true;
 
@@ -813,6 +841,13 @@ SpaceInvaders.Result.prototype = {
             that.add.text(that.world.centerX, 400 + (index * 200), player.score.toString(), { font: '80px Arial', fill: '#ffc600' });
             index += 1;
         });
+
+        var numMale = parseInt(this.game.countMan);
+        var numFemale = parseInt(this.game.countWoman);
+
+        var endingString = 'you where ' + numMale + ((numMale > 1)?' men':' man') + ' and ' + numFemale + ((numFemale > 1)?' women.':' woman.');
+        var endingText = that.add.text(that.world.centerX, 1600, endingString  ,{ font: '40px Arial', fill: '#ffc600' });
+        endingText.anchor.setTo(0.5, 0);
 
         //that.game.remoteInput.close();
 

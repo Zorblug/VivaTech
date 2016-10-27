@@ -73,7 +73,7 @@ html {
 
 #qrcode {
     background-color:white;
-    /*margin: 25px 25px;*/
+    margin-bottom: 50px;
     padding: 20px;
     position: relative;
     width: 100%;
