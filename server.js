@@ -8,7 +8,7 @@
   PORT
     { port TCP pour le serveur HTTP express }
   CAM_PORT
-    { port de commubnication serie vers la camera OMRON}
+    { port de communication serie vers la camera OMRON}
   BROADSIGN_IP
     { adresse ip du player broadsign}
   NODE_ENV
@@ -18,6 +18,7 @@
 var debug = require('debug')('jcdecaux.server');
 var http = require('http');
 var os = require('os');
+
 
 var app = require('./app.js');
 
