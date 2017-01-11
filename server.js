@@ -6,9 +6,9 @@
   YUN_MODE
    si definie alors mode YUN sion mode bouchon
   PORT
-    { port TCP pour le serveur HTTP express }
+    { port TCP pour le serveur HTTP express (defaut 3000) }
   CAM_PORT
-    { port de communication serie vers la camera OMRON}
+    { port de communication serie vers la camera OMRON }
   BROADSIGN_IP
     { adresse ip du player broadsign}
   NODE_ENV
@@ -209,11 +209,10 @@ function CameraCallback(answer) {
   }
 };
 
-
 httpServer.listen(app.get('port'), function () {
   debug('Express server listening on port ' + httpServer.address().port);
   if (cameraPort) {
-    debug('CAMERA ...');
+    debug('CAMERA ON', cameraPort);
     camera.open(cameraPort)
       .then(function (cam) {
         return cam.start(CameraCallback);
