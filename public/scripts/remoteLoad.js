@@ -1,20 +1,20 @@
-/// <reference path="Collection.js" />
-/// <reference path="Vector2.js" />
-/// <reference path="hand.js" />
-/// <reference path="event.js" />
+/// <reference path="../../common/Collection.js" />
+/// <reference path="../../common/Vector2.js" />
+/// <reference path="../../common/hand.js" />
+/// <reference path="../../common/event.js" />
 
 "use strict";
 (function control() {
 
     window.requestAnimFrame = (function () {
         return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.oRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 1000 / 60);//FPS 60 par secondes
-        };
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60);//FPS 60 par secondes
+            };
     })();
 
 
@@ -49,7 +49,7 @@
         if (window.DeviceOrientationEvent) {
             window.addEventListener('deviceorientation', orientationChange);
             orientationChange();
-         }
+        }
 
         joystickInput.connect();
 
@@ -142,10 +142,16 @@
             }
         })
 
-        canvas.addEventListener('pointerdown', onPointerDown, false);
-        canvas.addEventListener('pointermove', onPointerMove, false);
-        canvas.addEventListener('pointerup', onPointerUp, false);
-        canvas.addEventListener('pointerout', onPointerUp, false);
+        // canvas.addEventListener('pointerdown', onPointerDown, false);
+        // canvas.addEventListener('pointermove', onPointerMove, false);
+        // canvas.addEventListener('pointerup', onPointerUp, false);
+        // canvas.addEventListener('pointerout', onPointerUp, false);
+
+        canvas.addEventListener("touchstart", handleStart, false);
+        canvas.addEventListener("touchend", handleEnd, false);
+        canvas.addEventListener("touchcancel", handleCancel, false);
+        canvas.addEventListener("touchleave", handleLeave, false);
+        canvas.addEventListener("touchmove", handleMove, false);
 
         requestAnimFrame(draw);
     }
@@ -214,7 +220,53 @@
         requestAnimFrame(draw);
     }
 
+    function handleStart(evt) {
+        evt.preventDefault();
+        var touches = evt.changedTouches;
+        console.log('DOWN:', touches);
+        for (var i=0; i<touches.length; i++) {
+            onPointerDown(touches[i]);
+        }
+    }
+
+    function handleEnd(evt) {
+        evt.preventDefault();
+        var touches = evt.changedTouches;
+        console.log('UP:', touches);
+        for (var i=0; i<touches.length; i++) {
+            onPointerUp(touches[i]);
+        }
+    }
+
+    function handleCancel(evt) {
+        evt.preventDefault();
+        var touches = evt.changedTouches;
+        console.log('CANCEL:', touches);
+        for (var i=0; i<touches.length; i++) {
+            onPointerUp(touches[i]);
+        }
+    }
+
+    function handleLeave(evt) {
+        evt.preventDefault();
+        var touches = evt.changedTouches;
+        console.log('LEAVE:', touches);
+        for (var i=0; i<touches.length; i++) {
+            onPointerUp(touches[i]);
+        }
+    }
+
+    function handleMove(evt) {
+        evt.preventDefault();
+        var touches = evt.changedTouches;
+        console.log('MOVE:', touches);
+        for (var i=0; i<touches.length; i++) {
+            onPointerMove(touches[i]);
+        }
+    }
+
     function onPointerDown(e) {
+        console.log('DOWN:', e);
         if ((joystickInput.leftPointer.id < 0) && (e.clientX < halfWidth)) {
             joystickInput.setLeftPointer(e.pointerId, e.clientX, e.clientY);
         }
@@ -224,10 +276,12 @@
     }
 
     function onPointerMove(e) {
+        console.log('MOVE:', e);
         joystickInput.movePointer(e.pointerId, e.clientX, e.clientY);
     }
 
     function onPointerUp(e) {
+        console.log('UP:', e);
         joystickInput.removePointer(e.pointerId);
     }
 

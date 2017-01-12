@@ -67,8 +67,8 @@ if (process.env.YUN_MODE) {
 }
 else {
   //Version Bouchon
-  serverIPaddress.add('wlan0', '192.168.10.231');
-  serverIPaddress.add('eth1', '192.168.10.231');
+  serverIPaddress.add('wlan0', '192.168.10.165');
+  serverIPaddress.add('eth1', '192.168.10.165');
 
   app.locals.brCtrl = {
     pushNFC: function () { },
