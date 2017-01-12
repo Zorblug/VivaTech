@@ -268,21 +268,25 @@
     function onPointerDown(e) {
         console.log('DOWN:', e);
         if ((joystickInput.leftPointer.id < 0) && (e.clientX < halfWidth)) {
-            joystickInput.setLeftPointer(e.pointerId, e.clientX, e.clientY);
+            // joystickInput.setLeftPointer(e.pointerId, e.clientX, e.clientY);
+            joystickInput.setLeftPointer(e.identifier, e.clientX, e.clientY);
         }
         else {
-            joystickInput.setRightPointer(e.pointerId, e.clientX, e.clientY)
+            // joystickInput.setRightPointer(e.pointerId, e.clientX, e.clientY);
+            joystickInput.setRightPointer(e.identifier, e.clientX, e.clientY);
         }
     }
 
     function onPointerMove(e) {
         console.log('MOVE:', e);
-        joystickInput.movePointer(e.pointerId, e.clientX, e.clientY);
+        // joystickInput.movePointer(e.pointerId, e.clientX, e.clientY);
+        joystickInput.movePointer(e.identifier, e.clientX, e.clientY);
     }
 
     function onPointerUp(e) {
         console.log('UP:', e);
-        joystickInput.removePointer(e.pointerId);
+        // joystickInput.removePointer(e.pointerId);
+        joystickInput.removePointer(e.identifier);
     }
 
     function addLive(index) {

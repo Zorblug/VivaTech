@@ -31,7 +31,7 @@ VirtualJoystick.Emiter = function (serverAddress) {
 
     this.leftPointer = new VirtualJoystick.Pointer(-1, 0, 0);
     this.leftPointerStartPos = new Vector2(0, 0),
-    this.leftVector = new Vector2(0, 0);
+        this.leftVector = new Vector2(0, 0);
     this.pointersList = new Collection();
 
     this._events = new ObservableEvents();
@@ -182,14 +182,17 @@ VirtualJoystick.Emiter.prototype.removePointer = function (id) {
             this._sendMove();
         }
         this.vibrate(15);
+        this.leftVector.reset(0, 0);
+        console.log('REMOVE LEFT');
     }
     else {
         if (this.pointersList.item(id)) {
             this._button -= 1;
             this._sendButton();
         }
+        console.log('REMOVE RIGHT');
     }
-    this.leftVector.reset(0, 0);
+
     var count = this.pointersList.remove(id);
     if ((count <= 0) && (this._button > 0)) {
         this._button = 0;

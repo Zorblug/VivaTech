@@ -10,10 +10,8 @@ router.get('/', function (req, res) {
 });
 
 
-// var MainLoopTriggerId = 132343663;
-// var SpaceInvadersTriggerId = 132338849;
-var MainLoopTriggerId = 149930979;
-var SpaceInvadersTriggerId = 149930995;
+var MainLoopTriggerId = 132343663;
+var SpaceInvadersTriggerId = 132338849;
 var DominoTriggerId = 132338871;
 
 router.post('/home', function (req, res) {

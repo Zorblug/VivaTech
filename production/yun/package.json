@@ -1,0 +1,33 @@
+{
+  "name": "game.server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev:server": "nodemon server.js",
+    "dev:test": "npm run test -- --watch",
+    "test": "cross-env NODE_ENV=test mocha"
+  },
+  "description": "Kit BroadSign Jeux, NFC, Camera de reconnaissance OMRON",
+  "author": {
+    "name": "Arnaud Phelipot <arnaux.phelipot@jcdecaux.com>, Philippe Ebersold <philippe.ebersold@jcdecaux.com>"
+  },
+  "engines" : { "node" : "0.10.33" },
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "cross-env": "1.0.8",
+    "d3": "3.5.17",
+    "debug": "2.2.0",
+    "es6-promise": "4.0.5",
+    "express": "4.14.0",
+    "jade": "1.11.0",
+    "jquery": "3.1.1",
+    "moment": "2.15.1",
+    "phaser": "2.3.0",    
+    "serve-favicon": "2.1.3",    
+    "underscore": "1.8.3",
+    "vue": "2.0.3",
+    "vue-resource": "1.0.3",
+    "xml2js": "0.4.16"
+  }  
+}

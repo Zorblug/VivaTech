@@ -17,4 +17,15 @@ et un afficheur digitale.
 Modification et customisation :
 ========
 
+Lancement de l'application 
+DEBUG=jcd* BROADSIGN_IP=192.168.2.1 node server.js
+
+Mise en place en poduction : 
+
+cd /mnt/sda1/arduino/game
+YUN_MODE=1 BROADSIGN_IP=192.168.2.1 MODE_ENV=production node server.js
+ou
+YUN_MODE=1 BROADSIGN_IP=192.168.2.1 MODE_ENV=production forever start server.js
+
+
 

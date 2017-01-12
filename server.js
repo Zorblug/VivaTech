@@ -67,8 +67,8 @@ if (process.env.YUN_MODE) {
 }
 else {
   //Version Bouchon
-  serverIPaddress.add('wlan0', '192.168.10.165');
-  serverIPaddress.add('eth1', '192.168.10.165');
+  serverIPaddress.add('wlan0', '192.168.240.171');
+  serverIPaddress.add('eth1', '10.244.250.72');
 
   app.locals.brCtrl = {
     pushNFC: function () { },
@@ -100,8 +100,10 @@ var countForDominos = 0;
 var sending = true;
 
 
-var MainLoopTriggerId = 132343663;
-var SpaceInvadersTriggerId = 132338849;
+// var MainLoopTriggerId = 132343663;
+// var SpaceInvadersTriggerId = 132338849;
+var MainLoopTriggerId = 149930979;
+var SpaceInvadersTriggerId = 149930995;
 var DominoTriggerId = 132338871;
 
 var dominosGameServer = new DominoGameServer(attachWebSockets.io, 45, 30);
