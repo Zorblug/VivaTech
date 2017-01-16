@@ -100,10 +100,10 @@ var countForDominos = 0;
 var sending = true;
 
 
-// var MainLoopTriggerId = 132343663;
-// var SpaceInvadersTriggerId = 132338849;
-var MainLoopTriggerId = 149930979;
-var SpaceInvadersTriggerId = 149930995;
+var MainLoopTriggerId = 132343663;
+var SpaceInvadersTriggerId = 132338849;
+// var MainLoopTriggerId = 149930979;
+// var SpaceInvadersTriggerId = 149930995;
 var DominoTriggerId = 132338871;
 
 var dominosGameServer = new DominoGameServer(attachWebSockets.io, 45, 30);
