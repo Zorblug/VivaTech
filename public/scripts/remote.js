@@ -23,10 +23,10 @@
             postRequest(urlServer + '/loop1');
         });
 
-        // loopNfcBtn = document.getElementById('domino');
-        // loopNfcBtn.addEventListener('click', function () {
-        //     postRequest(urlServer + '/loop2');
-        // });
+        loopNfcBtn = document.getElementById('domino');
+        loopNfcBtn.addEventListener('click', function () {
+            postRequest(urlServer + '/loop2');
+        });
 
 		  //     loopNfcBtn = document.getElementById('button3');
       //   loopNfcBtn.addEventListener('click', function () {
