@@ -9,19 +9,16 @@ router.get('/', function (req, res) {
   res.render('remoteScreen', { title: 'Telecommande des Jeux', address:req.app.locals.netConfig.address.item('wlan0'), port:req.app.locals.netConfig.port });
 });
 
-
-var MainLoopTriggerId = 132343663;
-var SpaceInvadersTriggerId = 132338849;
-// var MainLoopTriggerId = 149930979;
-// var SpaceInvadersTriggerId = 149930995;
-var DominoTriggerId = 132338871;
+var homeTriggerId = 152807906;  //Video
+var loop1TriggerId =152807835;  //Cam360
+var loop2TriggerId = 152807886; //Game
 
 router.post('/home', function (req, res) {
     debug('TRIGGER : HOME');
 
     req.app.locals.brCtrl.stopLoopNFC();
 
-    req.app.locals.brCtrl.pushTrigger(MainLoopTriggerId);//VivaTech boucle
+    req.app.locals.brCtrl.pushTrigger(homeTriggerId);//VivaTech boucle
     req.app.locals.brCtrl.reArmPushNFC(0);
 
     //req.app.locals.brCtrl.loopNFC([109229290, 109229332, 109229365, 109229476]);//Deauville
@@ -34,7 +31,7 @@ router.post('/loop1', function (req, res) { //LOOP 1
 
     req.app.locals.brCtrl.stopLoopNFC();
 
-    req.app.locals.brCtrl.pushTrigger(SpaceInvadersTriggerId);//Space Invaders
+    req.app.locals.brCtrl.pushTrigger(loop1TriggerId);//Space Invaders
     req.app.locals.brCtrl.reArmPushNFC(0);
 
     //req.app.locals.brCtrl.loopNFC([109227455]);Deauville
@@ -49,33 +46,12 @@ router.post('/loop2', function (req, res) { //LOOP 2
 
     //req.app.locals.brCtrl.loopNFC([106241726, 106377377, 106377385]);//Barcellone
 
-    req.app.locals.brCtrl.pushTrigger(DominoTriggerId);//Domino
+    req.app.locals.brCtrl.pushTrigger(loop2TriggerId);//Domino
     req.app.locals.brCtrl.reArmPushNFC(0);
 
     //req.app.locals.brCtrl.loopNFC([109227458]);// Deauville
 
     res.sendStatus(200);
 });
-
-// router.post('/loop3', function (req, res) { // LOOP GAME
-//     debug('TRIGGER : LOOP 3');
-//
-//     req.app.locals.brCtrl.stopLoopNFC();
-//
-//     req.app.locals.brCtrl.pushTrigger(106241727);//Barcellone
-//     req.app.locals.brCtrl.reArmPushNFC(0);
-//
-//     res.sendStatus(200);
-// });
-//
-// router.post('/loop4', function (req, res) { //LOOP 4
-//     debug('TRIGGER : LOOP 4');
-//
-//     req.app.locals.brCtrl.stopLoopNFC();
-//     req.app.locals.brCtrl.pushTrigger(106241731);//Barcellone
-//     req.app.locals.brCtrl.reArmPushNFC(0);
-//
-//     res.sendStatus(200);
-// });
 
 module.exports = router;

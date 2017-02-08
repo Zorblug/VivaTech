@@ -1,24 +1,35 @@
 doctype html
 html
-  head(lang='en')
-    meta(charset='UTF-8')
-    title Entreprise du Futur Télécommande
-    link(rel='stylesheet', type='text/css', href='/css/style.min.css')
-    script.
-      var config = {};
-      config.address = '#{address}';
-      config.port = '#{port}';    
-    script(src='scripts/remote.js')
-  body
-    img(id='home' src='/img/back-home.png', style='margin-left: 100px; margin-top: 100px;')
-    div(style='margin: auto;')
-      #button-container1.button-container
-        #space.button.hvr-wobble-to-bottom-right
-          img(src='/img/picto-fusee.png', style='float: left; position:relative; top: 22%; left: 18%;')
-      //- #button-container2.button-container
-      //-   #domino.button.hvr-wobble-to-bottom-right
-      //-     img(src='/img/picto-domino.png', style='float: left; position:relative; top: 22%; left: 18%;')
-    //- img(src='/img/visuel-gauche.png', style='position:absolute; top: 800px; left: 0px;')
-    //- img(src='/img/visuel-droite.png', style='position:absolute; top: 800px; right: 0px;')
-    //- img(src='/img/logo-urbanplayground.png', style='position:absolute; bottom: 100px; left: 1130px;')
-    img(src='/img/logo-entrepriseDuFutur.png', style='position:absolute; top: 0px; left: 0px; z-index: -1;')
+  head
+    title MWC 2017 JcDecaux Remote
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='/css/style.min.css')
+    script(src='jquery/jquery.min.js')
+    script(src='/scripts/remote.min.js')
+  #decoRight
+    img(src='img/bg-deco-hautdroit.png')
+  #decoLeft
+    img(src='img/bg-deco-basgauche.png')
+  #title
+    img(src='img/logo-mwc17.png', style='width: 15vw;')
+    br
+    img(src='img/logo-gsma.png', style='width: 30vw;')
+  #jcdecaux
+    img(src='img/logo-jcdecaux.png')
+  #buttons
+    ul
+      li
+        span.hvr-wobble-to-bottom-right
+          img(src='img/picto-01-360.png')
+        br  
+        |360 SOLUTION
+      li
+        span.hvr-wobble-to-bottom-right
+          img(src='img/picto-02-video.png')
+        br  
+        |VIDEOS
+      li
+        span.hvr-wobble-to-bottom-right
+          img(src='img/picto-03-jeu.png')
+        br  
+        |GAME

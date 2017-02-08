@@ -82,3 +82,7 @@ canvas {
     background-position: center center;
     display: none;
 }
+
+@media only screen and ( orientation:portrait) {
+    
+}

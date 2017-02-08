@@ -748,7 +748,7 @@ SpaceInvaders.Game.prototype = {
         // this.welcomeText.anchor.setTo(0.5, 0);
         // this.welcomeText.visible = true;
 
-        this.stateText = this.add.text(this.world.centerX, 270, '          welcome to playground\r\n  connect to WiFi JCDecaux Gaming\r\nand get game pad by NFC or QR code', { font: '60px Arial', fill: '#ffc600' });
+        this.stateText = this.add.text(this.world.centerX, 270, '     Welcome to Rockets vs Aliens !\r\n  Connect to WiFi JCDecaux Gaming\r\nand get game pad by NFC or QR code', { font: '60px Arial', fill: '#ffc600' });
         this.stateText.anchor.setTo(0.5, 0);
         this.stateText.visible = true;
 

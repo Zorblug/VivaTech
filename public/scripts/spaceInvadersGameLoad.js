@@ -22,7 +22,8 @@ function BroadSignPlay() { //set up
         // QRCODE
         game._qrcodeBackgroud = document.getElementById("qrBackground");
         game._qrcode = new QRCode("qrcode", { useSVG: true });
-        // game._qrcode.makeCode('http://' + config.addressRemote + ':' + config.port + '/space');
+        game._qrcode.makeCode('http://' + config.addressRemote + ':' + config.port + '/space');
+        // game._qrcode.makeCode('http://jcdecaux.fr');
 
         game.clearQR = function () {
            game._qrcode.clear();

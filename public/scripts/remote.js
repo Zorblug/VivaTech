@@ -1,48 +1,20 @@
 ﻿'use strict';
 
 (function () {
-    function postRequest(url) {
-        var r = new XMLHttpRequest();
-        r.open("POST", url, true);
-        r.onreadystatechange = function () {
-            if (r.readyState != 4 || r.status != 200) return;
-            console.log(r.responseText);
-        };
-        r.send(null);
-    }
-
-    var urlServer;
-
-    var loopEricssonBtn, loopNfcBtn, loopHomeBtn;
+    var btCam360, btVideo, btGame;
 
     function init() {
-        urlServer = 'http://' + config.address + ':' + config.port;
-
-        loopEricssonBtn = document.getElementById('space');
-        loopEricssonBtn.addEventListener('click', function () {
-            postRequest(urlServer + '/loop1');
+        btCam360 = $('ul li:nth-child(1) span').click(function (event) {            
+            $.post('loop1', function(){                
+            });
         });
-
-        loopNfcBtn = document.getElementById('domino');
-        loopNfcBtn.addEventListener('click', function () {
-            postRequest(urlServer + '/loop2');
+        btVideo = $('ul li:nth-child(2) span').click(function (event) {
+            $.post('home');
         });
-
-		  //     loopNfcBtn = document.getElementById('button3');
-      //   loopNfcBtn.addEventListener('click', function () {
-      //       postRequest(urlServer + 'loop3');
-      //   });
-      //
-      //   loopNfcBtn = document.getElementById('button4');
-      // loopNfcBtn.addEventListener('click', function () {
-      //     postRequest(urlServer + 'loop4');
-      // });
-
-		loopHomeBtn = document.getElementById('home');
-        loopHomeBtn.addEventListener('click', function () {
-            postRequest(urlServer + '/home');
+        btGame = $('ul li:nth-child(3) span').click(function (event) {
+            $.post('loop2');
         });
-
     }
-    document.addEventListener("DOMContentLoaded", init);
+
+    $(init);
 })();

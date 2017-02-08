@@ -9,6 +9,7 @@ var dominoGame = require('./routes/dominoGame');
 var remote = require('./routes/remoteScreen');
 var spaceInvadersGame = require('./routes/spaceInvadersGame');
 var camera = require('./routes/cameraApi');
+var p360 = require('./routes/panaCam360');
 
 var app = express();
 
@@ -32,7 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/common', express.static(path.join(__dirname, 'common'))); // Chemin pour les librairies maisons communes
 
 // Chemin pour les librairies installer par npm
-app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist'))); 
+app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist')));
 app.use('/d3', express.static(path.join(__dirname, 'node_modules/d3')));
 app.use('/es6-promise', express.static(path.join(__dirname, 'node_modules/es6-promise/dist')));
 app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist')));
@@ -46,6 +47,7 @@ app.use('/', remote);
 app.use('/domino', dominoGame);
 app.use('/space', spaceInvadersGame);
 app.use('/camera', camera);
+app.use('/p360', p360);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
