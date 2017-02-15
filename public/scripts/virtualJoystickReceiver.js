@@ -116,6 +116,7 @@ VirtualJoystick.Receiver.prototype.connect = function () {
 
 //Necessite une reconnection
 VirtualJoystick.Receiver.prototype.close = function close() {
+    console.log("SEND close.");
     this._socket.emit('close');
     this._socket.disconnect();
     this._socket = null;

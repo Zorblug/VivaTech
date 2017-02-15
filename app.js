@@ -13,7 +13,7 @@ var p360 = require('./routes/panaCam360');
 
 var app = express();
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.HTTP_PORT || 3000);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');

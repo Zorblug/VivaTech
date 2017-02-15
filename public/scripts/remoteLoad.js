@@ -1,6 +1,5 @@
 /// <reference path="../../common/Collection.js" />
 /// <reference path="../../common/Vector2.js" />
-/// <reference path="../../common/hand.js" />
 /// <reference path="../../common/event.js" />
 
 "use strict";
@@ -35,21 +34,27 @@
     window.onorientationchange = resetCanvas;
     window.onresize = resetCanvas;
 
-    function orientationChange(event) {
-        //console.log('TURN');
-        var portraitOrientation = window.matchMedia("(orientation:portrait)");
-        if (portraitOrientation.matches) {
-            document.getElementById("controlView").style.display = "block";
-        } else {
-            document.getElementById("controlView").style.display = "none";
-        }
-    }
+    // function orientationChange(event) {
+    //     console.log('TURN');
+    //     var portraitOrientation = window.matchMedia("(orientation:portrait)");
+    //     if (portraitOrientation.matches) {
+    //         document.getElementById("controlView").style.display = "block";
+    //     } else {
+    //         document.getElementById("controlView").style.display = "none";
+    //     }
+    // }
 
     function init() {
-        if (window.DeviceOrientationEvent) {
-            window.addEventListener('deviceorientation', orientationChange);
-            orientationChange();
-        }
+        // if (/SM-T360/.test(navigator.appVersion)) {
+        //     console.log('SM-T360');
+        // }
+        // else {
+        //     if (window.DeviceOrientationEvent) {
+        //         window.addEventListener('deviceorientation', orientationChange, true);
+        //         orientationChange();
+        //     }
+        // }
+
 
         joystickInput.connect();
 
@@ -58,7 +63,7 @@
         topInfo = document.getElementById('viewText');
         middleInfo = document.getElementById('infosText');
 
-        topInfo.innerText = "POUR LANCER LA PARTIE TOUCHER AVEC DEUX DOIGTS LA PARTIE DROITE DE L'ECRAN";
+        topInfo.innerText = "TO START THE PARTY TOUCH WITH TWO FINGERS THE RIGHT PART OF THE SCREEN";
         middleInfo.innerText = "NUMBER OF PLAYER : 1";
         lives = document.getElementById('lives');
         score = document.getElementById('viewScore');
@@ -125,7 +130,7 @@
                     score.innerText = "SCORE : " + context.data.score;
                     break;
                 case 'kill'://Perdus
-                    topInfo.innerText = 'Fin de la partie';
+                    topInfo.innerText = '';
                     middleInfo.innerText = "GAME OVER !"
                     joystickInput.close();
                     joystickInput.vibrate([200, 50, 200, 50, 200, 50, 500, 50, 1000]);
@@ -141,11 +146,6 @@
                     break;
             }
         })
-
-        // canvas.addEventListener('pointerdown', onPointerDown, false);
-        // canvas.addEventListener('pointermove', onPointerMove, false);
-        // canvas.addEventListener('pointerup', onPointerUp, false);
-        // canvas.addEventListener('pointerout', onPointerUp, false);
 
         canvas.addEventListener("touchstart", handleStart, false);
         canvas.addEventListener("touchend", handleEnd, false);
@@ -224,7 +224,7 @@
         evt.preventDefault();
         var touches = evt.changedTouches;
         console.log('DOWN:', touches);
-        for (var i=0; i<touches.length; i++) {
+        for (var i = 0; i < touches.length; i++) {
             onPointerDown(touches[i]);
         }
     }
@@ -233,7 +233,7 @@
         evt.preventDefault();
         var touches = evt.changedTouches;
         console.log('UP:', touches);
-        for (var i=0; i<touches.length; i++) {
+        for (var i = 0; i < touches.length; i++) {
             onPointerUp(touches[i]);
         }
     }
@@ -242,7 +242,7 @@
         evt.preventDefault();
         var touches = evt.changedTouches;
         console.log('CANCEL:', touches);
-        for (var i=0; i<touches.length; i++) {
+        for (var i = 0; i < touches.length; i++) {
             onPointerUp(touches[i]);
         }
     }
@@ -251,7 +251,7 @@
         evt.preventDefault();
         var touches = evt.changedTouches;
         console.log('LEAVE:', touches);
-        for (var i=0; i<touches.length; i++) {
+        for (var i = 0; i < touches.length; i++) {
             onPointerUp(touches[i]);
         }
     }
@@ -260,7 +260,7 @@
         evt.preventDefault();
         var touches = evt.changedTouches;
         console.log('MOVE:', touches);
-        for (var i=0; i<touches.length; i++) {
+        for (var i = 0; i < touches.length; i++) {
             onPointerMove(touches[i]);
         }
     }
@@ -297,6 +297,6 @@
     }
 
     function removLive() {
-        lives.removeChild(lives.childNodes[1]);
+        lives.removeChild(lives.childNodes[lives.childNodes.length - 1]);
     }
 })();

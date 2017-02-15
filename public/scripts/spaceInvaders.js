@@ -817,18 +817,18 @@ SpaceInvaders.Result.prototype = {
     preload: function () {
         console.log('PRELOAD SCORE');
 
-        this.load.image('starfield', '/assets/starfield.png');
+        // this.load.image('starfield', '/assets/starfield.png');
 
-        this.load.image('fusee_Bleu', '/assets/fusee_Bleu.png');
-        this.load.image('fusee_Jaune', '/assets/fusee_Jaune.png');
-        this.load.image('fusee_Rouge', '/assets/fusee_Rouge.png');
-        this.load.image('fusee_Vert', '/assets/fusee_Vert.png');
-        this.load.image('fusee_Violet', '/assets/fusee_Violet.png');
-        this.load.image('fusee_Gris', '/assets/fusee_Gris.png');
+        // this.load.image('fusee_Bleu', '/assets/fusee_Bleu.png');
+        // this.load.image('fusee_Jaune', '/assets/fusee_Jaune.png');
+        // this.load.image('fusee_Rouge', '/assets/fusee_Rouge.png');
+        // this.load.image('fusee_Vert', '/assets/fusee_Vert.png');
+        // this.load.image('fusee_Violet', '/assets/fusee_Violet.png');
+        // this.load.image('fusee_Gris', '/assets/fusee_Gris.png');
     },
     create: function () {
         console.log('CREATE SCORE');
-        this.stage.setBackgroundColor(0xffffff);
+        this.stage.setBackgroundColor(0x000000);
         //Le fond qui scroll de haut en bas
         this.starfield = this.add.tileSprite(0, 0, 1080, 1920, 'starfield');
 
@@ -855,7 +855,7 @@ SpaceInvaders.Result.prototype = {
             console.log('END OF GAME');
             that.game.remoteInput.close(); //Pour envoyer un evenement au server pour déclencher le Trigger
 
-            that.game.state.start("game");
+            // that.game.state.start("game");
         }, 15000);
     },
     update: function () {

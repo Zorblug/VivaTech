@@ -2,7 +2,7 @@
 var game;
 
 function startAnimations() {
-    game.state.start('spaceInvaders');
+    game.state.start('game');
 }
 
 function BroadSignPlay() { //set up
@@ -38,10 +38,20 @@ function BroadSignPlay() { //set up
 
         game.countMan = config.countMan;
         game.countWoman = config.countWoman;
-
+        
         game.state.add('game', SpaceInvaders.Game);
         game.state.add('result', SpaceInvaders.Result);
-        game.state.start('game');
+        
+
+        var broadSignRessourceID = window.location.search.split('com.broadsign.suite.bsp.resource_id=')[1];
+        console.log('ID:' + broadSignRessourceID);
+        if(!broadSignRessourceID) {
+            game.state.start('game');
+        }
+
+        // for(var propName in window) {
+        //     console.log('-' + propName + ' : ' + window[propName]);
+        // }
     };
 
     document.addEventListener("DOMContentLoaded", init);

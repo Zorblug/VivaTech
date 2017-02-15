@@ -34,8 +34,8 @@
   };
 
   Broadsign.Manager.prototype.resetNFC = function resetNFC() {
-    if (this._nextPlayingInfos !== undefined) {
-      clearTimeout(this._nextPlayingInfos);
+    if (this._nextPlayingInfosTimeOut !== undefined) {
+      clearTimeout(this._nextPlayingInfosTimeOut);
       this._nextPlayingInfosTimeOut = undefined;
     }
   };

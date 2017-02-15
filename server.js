@@ -5,8 +5,10 @@
     niveau d'afficha du debug
   YUN_MODE
    si definie alors mode YUN sinon mode bouchon
-  PORT
+  HTTP_PORT
     { port TCP pour le serveur HTTP express (defaut 3000) }
+  HTTPS_PORT
+    { port TCP pour le serveur HTTPS express (defaut 3447) }
   CAM_PORT
     { port de communication serie vers la camera OMRON }
   BROADSIGN_IP
@@ -19,6 +21,8 @@
 */
 var debug = require('debug')('jcdecaux.server');
 var http = require('http');
+// var https = require('https');
+// var fs = require('fs');
 var os = require('os');
 
 var app = require('./app.js');
@@ -30,24 +34,24 @@ var DominoGameServer = require('./lib/dominosServerControl');
 var VirtualJoystickServer = require('./lib/virtualJoystickServer');
 
 var camera = CameraService.getInstance();
+// var options = {
+//   key: fs.readFileSync('./server.key'),
+//   cert: fs.readFileSync('./server.crt'),
+//   requestCert: false,
+//   rejectUnauthorized: false
+// };
+
+
 var httpServer = http.createServer(app);
 attachWebSockets(httpServer);
+// var httpsServer = https.createServer(options, app);
+// attachWebSockets(httpsServer);
 
 var serverIPaddress = new Collection();
 
 var cameraPort = process.env.CAM_PORT || undefined;
 
 if (process.env.BROADSIGN_IP) {
-  // var broadsignControl = require('./lib/broadsign.js');
-  // broadsignControl.setPlayerAddress(process.env.BROADSIGN_IP || '10.210.106.129');
-
-  // app.locals.brCtrl = {
-  //   pushNFC: broadsignControl.pushNFC,
-  //   reArmPushNFC: broadsignControl.reArmPushNFC,
-  //   pushTrigger: broadsignControl.pushTrigger,
-  //   loopNFC: broadsignControl.loopNFC,
-  //   stopLoopNFC: broadsignControl.stopLoopNFC
-  // };
   if (process.env.NFC_PORT) {
     var Broadsign = require('./common/broadSignNFC');
 
@@ -108,6 +112,7 @@ else {
   //Version Bouchon
   serverIPaddress.add('wlan0', '192.168.137.1');
   serverIPaddress.add('eth1', '172.21.254.62');
+  // serverIPaddress.add('eth1', '127.0.0.1');
 }
 
 app.locals.brCtrl.resetNoCameraTrig = ResetNoCameraTrig;
@@ -238,24 +243,31 @@ function CameraCallback(answer) {
     sending = false;
   }
 };
+var httpPort =  process.env.HTTP_PORT || 3000;
+app.set('port', httpPort);
 
-httpServer.listen(app.get('port'), function () {
-  debug('Express server listening on port ' + httpServer.address().port);
-  if (cameraPort) {
-    debug('CAMERA ON', cameraPort);
-    camera.open(cameraPort)
-      .then(function (cam) {
-        return cam.start(CameraCallback);
-      })
-      .then(function (cam) {
-        debug('Camera de detection de visage démarré !', cam);
-        cameraFlux.on('connection', function (socket) {
-          debug('client connected to camera  : ' + socket.id + " ip:" + socket.handshake.address);
-          sending = true;
-        });
-      })
-      .catch(function (err, cam) {
-        debug('CAMERA ERREUR ', err, cam);
-      })
-  }
+// var httpsPort =  process.env.HTTPS_PORT || 3447;
+
+httpServer.listen(httpPort, function () {
+  debug('Express server listening http on port ' + httpServer.address().port);
+  // httpsServer.listen(httpsPort, function () {
+    // debug('Express server listening http on port ' + httpsServer.address().port);
+    if (cameraPort) {
+      debug('CAMERA ON', cameraPort);
+      camera.open(cameraPort)
+        .then(function (cam) {
+          return cam.start(CameraCallback);
+        })
+        .then(function (cam) {
+          debug('Camera de detection de visage démarré !', cam);
+          cameraFlux.on('connection', function (socket) {
+            debug('client connected to camera  : ' + socket.id + " ip:" + socket.handshake.address);
+            sending = true;
+          });
+        })
+        .catch(function (err, cam) {
+          debug('CAMERA ERREUR ', err, cam);
+        })
+    }
+  // });
 });
